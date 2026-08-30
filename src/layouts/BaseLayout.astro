@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { title, description, path = '/', dataDate } = Astro.props;
-const site = Astro.site ?? new URL('https://bonnie.dev');
+const site = Astro.site ?? new URL('https://bonnieai.me');
 const canonical = new URL(path, site).href;
 ---
 
