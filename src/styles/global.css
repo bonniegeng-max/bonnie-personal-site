@@ -767,6 +767,7 @@ section {
   gap: 10px;
   color: var(--ink);
   transition: transform 0.25s ease, border-color 0.25s ease;
+  min-height: 220px;
 }
 a.channel-card:hover {
   transform: translateY(-3px);
@@ -794,8 +795,10 @@ a.channel-card:hover {
 }
 .channel-card.qr-card-ch img {
   max-width: 150px;
+  max-height: 150px;
   width: 100%;
   height: auto;
+  object-fit: contain;
   border-radius: 8px;
   border: 1px solid var(--line);
 }
