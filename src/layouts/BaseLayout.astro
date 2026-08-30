@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string; // 用于 og:url
+  dataDate?: string; // 数据截至日期（页脚）
+}
+
+const { title, description, path = '/', dataDate } = Astro.props;
+const site = Astro.site ?? new URL('https://bonnie.dev');
+const canonical = new URL(path, site).href;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <!-- 字体：非阻塞加载，国内加载失败自动回退系统衬线/无衬线 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script is:inline>
+      // 入场动效：先打上 reveal-ready 标记，让 CSS 的初始隐藏生效；再启动观察器
+      document.documentElement.classList.add('reveal-ready');
+      // 字体：还原 noscript 场景下的样式可见性
+      window.addEventListener('load', () => {
+        document.querySelectorAll('link[media="print"]').forEach((l) => (l.media = 'all'));
+      });
+    </script>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap">
+        <a class="logo" href="/">Bonnie<span>.</span></a>
+        <nav>
+          <ul>
+            <li><a href="/#works">作品现场</a></li>
+            <li><a href="/#method">方法与声音</a></li>
+            <li><a href="/works">全部作品</a></li>
+            <li><a href="/#contact">联系</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          © 2026 Bonnie · 用 Astro 构建 · Bonnie 与 AI 协作完成 ·
+          <span class="data-date">数据截至 {dataDate}</span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.05, rootMargin: '0px 0px 40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      // 兜底：2s 后仍未入场的全部显示（应对无滚动场景 / 截图 / 爬虫 / 辅助技术）
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

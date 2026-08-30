@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSkills, getStats } from '../lib/skills';
+import { ARTICLES, INTERESTS } from '../lib/content';
+
+const skills = await getSkills();
+const stats = await getStats();
+const sortedArticles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<BaseLayout
+  title="全部作品 · Bonnie"
+  description="Bonnie 的全部开源 skill（GitHub + ClawHub 自动同步，按下载量排序）与公众号文章。"
+  path="/works"
+  dataDate={stats.dataDate}
+>
+  <section class="works-hero">
+    <div class="wrap">
+      <p class="kicker"><a href="/">← 返回主页</a></p>
+      <h1 class="display">全部作品</h1>
+      <p class="lede">
+        {stats.skillCount}
+        个开源 skill · 累计下载 {stats.totalDownloads}
+        次 · 每次构建自动同步 GitHub 与 ClawHub，按下载数排序。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">Skills</h2>
+        <div class="note">解决什么问题 · 安装命令 · 案例链接</div>
+      </div>
+      <div class="works-grid">
+        {
+          skills.map((s, i) => (
+            <article class="feature-card reveal">
+              <div class="rank display">{String(i + 1).padStart(2, '0')}</div>
+              <h3>{s.displayName}</h3>
+              <p class="problem">{s.description}</p>
+              <div class="install">
+                <span class="install-label">安装</span>
+                <code>{s.install}</code>
+              </div>
+              <div class="feature-meta">
+                <span class="dl">
+                  {s.downloads ? `↓ ${s.downloads}` : '新发布'}
+                  {s.stars > 0 && ` · ★ ${s.stars}`}
+                  {s.updated !== '—' && ` · ${s.updated}`}
+                </span>
+                <span class="links">
+                  <a href={s.url} target="_blank" rel="noopener">
+                    {s.source === 'github' ? 'GitHub ↗' : 'ClawHub ↗'}
+                  </a>
+                  {s.caseUrl && (
+                    <a href={s.caseUrl} target="_blank" rel="noopener">
+                      案例 ↗
+                    </a>
+                  )}
+                </span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">公众号文章</h2>
+        <div class="note">「巴扎嘿的探索记录」</div>
+      </div>
+      <div class="cards articles">
+        {
+          sortedArticles.map((a) => (
+            <article class="card reveal">
+              <span class="tag">
+                {a.tag}
+                {a.featured && <b class="flag">旗舰</b>}
+              </span>
+              <h3>{a.title}</h3>
+              <p>{a.desc}</p>
+              <div class="meta">
+                <span>{a.date}</span>
+                <a href={a.url} target="_blank" rel="noopener">
+                  读原文 →
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="interests">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">更多面</h2>
+        <div class="note">工作之外 · 兴趣也在练同一套「人给机器下定义」</div>
+      </div>
+      <div class="cards articles">
+        {
+          INTERESTS.map((it) => (
+            <article class="card reveal">
+              <span class="tag">{it.name}</span>
+              <p>{it.desc}</p>
+              {it.note && <p class="interest-note">{it.note}</p>}
+              <div class="meta">
+                <span />
+                {it.url && (
+                  <a href={it.url} target="_blank" rel="noopener">
+                    去看看 ↗
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

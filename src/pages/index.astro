@@ -1,0 +1,293 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSkills, getStats } from '../lib/skills';
+import { ARTICLES, TIMELINE, METHOD_CASES, LEARNING, CHANNELS } from '../lib/content';
+
+const skills = await getSkills();
+const stats = await getStats();
+const top3 = skills.slice(0, 3);
+const rest = skills.slice(3);
+const featuredArticle = ARTICLES.filter((a) => a.featured);
+const otherArticles = ARTICLES.filter((a) => !a.featured);
+---
+
+<BaseLayout
+  title="Bonnie · 运营人用 AI 把经验重新做一遍"
+  description="10 年运营人（平台增长 × 内容治理），正在用 AI 把经验重新做一遍。开源 skill、方法论案例与公众号文章——做成了什么，数据说话。"
+  path="/"
+  dataDate={stats.dataDate}
+>
+  <!-- ① 开篇：身份 + 数字 + 一条主线 -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="kicker">个人主页 · 实践现场</div>
+      <h1 class="display">10 年运营人，<br />正在用 AI 把经验<br />重新做一遍。</h1>
+      <p class="lede">
+        前半场做平台增长（美团 · 滴滴），后半场管内容生态治理。现在把沉淀十年的隐性经验交给 AI
+        重新做一遍——做成了什么，下面用数据说话。
+      </p>
+      <div class="identities">
+        <div class="chip"><b>运营人</b> · 10 年操盘</div>
+        <div class="chip"><b>AI 探索者</b> · 近 2 年实践</div>
+        <div class="chip"><b>读书人</b> · 读得杂，不装专业</div>
+      </div>
+
+      <div class="stats" aria-label="关键数据">
+        <div class="stat">
+          <div class="num display">10<span class="unit">年</span></div>
+          <div class="label">平台运营经验</div>
+        </div>
+        <div class="stat">
+          <div class="num display">{stats.skillCount}<span class="unit">个</span></div>
+          <div class="label">开源 skill · GitHub + ClawHub</div>
+        </div>
+        <div class="stat">
+          <div class="num display">{stats.totalDownloads}<span class="unit">+</span></div>
+          <div class="label">累计下载 · ClawHub 实时统计</div>
+        </div>
+        <div class="stat">
+          <div class="num display">378<span class="unit">次</span></div>
+          <div class="label">模型调用 · 上下文消融测试</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="storyline" id="story">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">一条主线</h2>
+        <div class="note">增长 → 治理 → AI 协作，都是「人 ↔ 机器翻译者」</div>
+      </div>
+      <ul class="timeline">
+        {
+          TIMELINE.map((t) => (
+            <li class={t.current ? 'current' : ''}>
+              <div class="yr">{t.yr}</div>
+              <div class="tx">
+                {t.tx}
+                {t.note && <div class="tx-note">{t.note}</div>}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="learning">
+        <div class="learning-head">
+          <h3 class="display">正在学</h3>
+          <span class="note">learn in public · 过程也可见</span>
+        </div>
+        <div class="learning-grid">
+          {
+            LEARNING.map((l) => (
+              <div class="learning-item reveal">
+                <div class="learning-what">{l.what}</div>
+                <p>{l.why}</p>
+                <span class="learning-status">{l.status}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 作品现场 -->
+  <section id="works">
+    <div class="wrap">
+      <p class="sec-lede display">— 散点尝试已长成体系，按下载量说话。</p>
+      <div class="sec-head">
+        <h2 class="display">作品现场</h2>
+        <div class="note">ClawHub 下载量排序 · 构建时自动同步</div>
+      </div>
+
+      <div class="top3">
+        {
+          top3.map((s, i) => (
+            <article class="feature-card reveal">
+              <div class="rank display">{String(i + 1).padStart(2, '0')}</div>
+              <h3>{s.displayName}</h3>
+              <p class="problem">{s.description}</p>
+              <div class="install">
+                <span class="install-label">安装</span>
+                <code>{s.install}</code>
+              </div>
+              <div class="feature-meta">
+                <span class="dl">
+                  {s.downloads ? `↓ ${s.downloads}` : '新发布'}
+                  {s.stars > 0 && ` · ★ ${s.stars}`}
+                </span>
+                <span class="links">
+                  <a href={s.url} target="_blank" rel="noopener">
+                    {s.source === 'github' ? 'GitHub ↗' : 'ClawHub ↗'}
+                  </a>
+                  {s.caseUrl && (
+                    <a href={s.caseUrl} target="_blank" rel="noopener">
+                      案例 ↗
+                    </a>
+                  )}
+                </span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      {
+        rest.length > 0 && (
+          <>
+            <div class="rest-head">其他作品</div>
+            <ul class="rest-list">
+              {rest.map((s) => (
+                <li class="reveal">
+                  <div class="rest-main">
+                    <span class="rest-name">{s.displayName}</span>
+                    <span class="rest-desc">{s.description}</span>
+                  </div>
+                  <div class="rest-meta">
+                    <span>{s.downloads ? `↓ ${s.downloads}` : s.updated}</span>
+                    <a href={s.url} target="_blank" rel="noopener">
+                      ↗
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      <div class="all-works">
+        <a class="btn ghost" href="/works">查看全部作品 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 方法与声音 -->
+  <section id="method">
+    <div class="wrap">
+      <p class="sec-lede display">— 怎么想的，比怎么做的更值得看。</p>
+      <div class="sec-head">
+        <h2 class="display">方法与声音</h2>
+        <div class="note">十年沉淀的方法论 × 正在写的公众号</div>
+      </div>
+
+      <div class="method-grid">
+        {
+          METHOD_CASES.map((c) =>
+            c.diagram === 'pipelines' ? (
+              <article class="method-card wide reveal">
+                <div class="wide-text">
+                  <span class="tag">{c.era}</span>
+                  <h3>{c.title}</h3>
+                  <p>{c.body}</p>
+                  <div class="takeaway">{c.takeaway}</div>
+                </div>
+                <figure class="wide-fig">
+                  <svg class="pipeline-fig" viewBox="0 0 560 246" role="img" aria-label="三条 AI 协作流水线：策略评估、Prompt 迭代、小模型训练，各含人工确认点，评审数据回流为训练正例">
+                    {/* lane 1 策略评估 */}
+                    <text class="lane" x="6" y="52">策略评估</text>
+                    <g class="node"><rect x="96" y="30" width="104" height="32" rx="8" /><text x="148" y="50">机审预标注</text></g>
+                    <path class="arrow" d="M202 46 h18" /><polygon class="arrow-head" points="222,42 230,46 222,50" />
+                    <g class="node"><rect x="232" y="30" width="104" height="32" rx="8" /><text x="284" y="50">人审精审</text></g>
+                    <circle class="human" cx="338" cy="31" r="9" /><text class="human-text" x="338" y="34.5">人</text>
+                    <path class="arrow" d="M338 46 h18" /><polygon class="arrow-head" points="358,42 366,46 358,50" />
+                    <g class="node"><rect x="368" y="30" width="104" height="32" rx="8" /><text x="420" y="50">达标送处置</text></g>
+                    <path class="loop" d="M420 66 C 420 80, 148 80, 148 66" /><polygon class="loop-head" points="143,68 148,60 153,68" />
+                    <text class="loop-label" x="480" y="78">未达标 → 寻优</text>
+                    {/* lane 2 Prompt 迭代 */}
+                    <text class="lane" x="6" y="122">Prompt 迭代</text>
+                    <g class="node"><rect x="96" y="100" width="104" height="32" rx="8" /><text x="148" y="120">case 归因</text></g>
+                    <path class="arrow" d="M202 116 h18" /><polygon class="arrow-head" points="222,112 230,116 222,120" />
+                    <g class="node"><rect x="232" y="100" width="104" height="32" rx="8" /><text x="284" y="120">新版 + diff</text></g>
+                    <circle class="human" cx="338" cy="101" r="9" /><text class="human-text" x="338" y="104.5">人</text>
+                    <path class="arrow" d="M338 116 h18" /><polygon class="arrow-head" points="358,112 366,116 358,120" />
+                    <g class="node"><rect x="368" y="100" width="104" height="32" rx="8" /><text x="420" y="120">评测对照</text></g>
+                    <path class="loop" d="M420 136 C 420 150, 148 150, 148 136" /><polygon class="loop-head" points="143,138 148,130 153,138" />
+                    <text class="loop-label" x="480" y="148">不可上线 → 迭代</text>
+                    {/* lane 3 小模型训练 */}
+                    <text class="lane" x="6" y="192">小模型训练</text>
+                    <g class="node"><rect x="96" y="170" width="104" height="32" rx="8" /><text x="148" y="190">数据就绪</text></g>
+                    <path class="arrow" d="M202 186 h18" /><polygon class="arrow-head" points="222,182 230,186 222,190" />
+                    <g class="node"><rect x="232" y="170" width="104" height="32" rx="8" /><text x="284" y="190">串行训练</text></g>
+                    <path class="arrow" d="M338 186 h18" /><polygon class="arrow-head" points="358,182 366,186 358,190" />
+                    <g class="node"><rect x="368" y="170" width="104" height="32" rx="8" /><text x="420" y="190">空跑验证</text></g>
+                    <circle class="human" cx="474" cy="171" r="9" /><text class="human-text" x="474" y="174.5">人</text>
+                    <path class="loop" d="M420 206 C 420 220, 148 220, 148 206" /><polygon class="loop-head" points="143,208 148,200 153,208" />
+                    <text class="loop-label" x="480" y="218">未达标 → 重训</text>
+                    {/* flywheel caption */}
+                    <text class="caption" x="6" y="242">评审数据回流为训练正例 · 三条线互喂</text>
+                    <circle class="human" cx="508" cy="238" r="8" /><text class="human-text" x="508" y="241.5">人</text>
+                    <text class="loop-label" x="521" y="242">人工确认点</text>
+                  </svg>
+                </figure>
+              </article>
+            ) : (
+              <article class="method-card reveal">
+                <span class="tag">{c.era}</span>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+                <div class="takeaway">{c.takeaway}</div>
+              </article>
+            )
+          )
+        }
+      </div>
+
+      <div class="rest-head">公众号文章</div>
+      <div class="cards articles">
+        {
+          [...featuredArticle, ...otherArticles].map((a) => (
+            <article class="card reveal">
+              <span class="tag">
+                {a.tag}
+                {a.featured && <b class="flag">旗舰</b>}
+              </span>
+              <h3>{a.title}</h3>
+              <p>{a.desc}</p>
+              <div class="meta">
+                <span>{a.date}</span>
+                <a href={a.url} target="_blank" rel="noopener">
+                  读原文 →
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 在这里找到我（渠道矩阵） -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="sec-lede display">— 我散在各处的输出，这里是一个集合入口。</p>
+      <h2 class="display">在这里找到我</h2>
+      <p>按你的习惯挑一个渠道——想看长文去公众号，想看日用场景去小红书，想直接用去 GitHub，想聊合作发邮件。</p>
+
+      <div class="channel-grid">
+        {
+          CHANNELS.map((c) =>
+            c.qr ? (
+              <div class="channel-card qr-card-ch reveal">
+                <div class="channel-name">{c.name}</div>
+                <p class="channel-what">{c.what}</p>
+                <img src={c.qrSrc || '/qrcode-wechat.png'} alt={`${c.name} 二维码`} />
+                <span class="channel-action">{c.action}</span>
+              </div>
+            ) : (
+              <a class="channel-card reveal" href={c.url} target="_blank" rel="noopener">
+                <div class="channel-name">{c.name}</div>
+                <p class="channel-what">{c.what}</p>
+                <span class="channel-action">
+                  {c.action} <span aria-hidden="true">↗</span>
+                </span>
+              </a>
+            )
+          )
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
