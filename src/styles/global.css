@@ -491,6 +491,30 @@ section {
   line-height: 1.6;
 }
 
+/* 方法卡正文：小标题+要点列表 */
+.method-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.method-body > p {
+  font-size: 14.5px;
+  color: var(--muted);
+  margin: 0;
+}
+.method-points {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+.method-points li {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 3px;
+}
+
 /* ---------- 第三张方法卡：通栏 + 流水线图 ---------- */
 .method-card.wide {
   grid-column: 1 / -1;

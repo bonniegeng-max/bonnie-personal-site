@@ -227,7 +227,15 @@ const otherArticles = ARTICLES.filter((a) => !a.featured);
               <article class="method-card reveal">
                 <span class="tag">{c.era}</span>
                 <h3>{c.title}</h3>
-                <p>{c.body}</p>
+                <div class="method-body">
+                  {c.body.split('\n').map((line) =>
+                    line.startsWith('•') ? (
+                      <ul class="method-points"><li>{line.replace(/^•\s*/, '')}</li></ul>
+                    ) : line.trim() ? (
+                      <p>{line}</p>
+                    ) : null
+                  )}
+                </div>
                 <div class="takeaway">{c.takeaway}</div>
               </article>
             )
