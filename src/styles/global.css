@@ -773,6 +773,165 @@ section {
   letter-spacing: 0.04em;
 }
 
+/* ---------- 专业资质（证书卡） ---------- */
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.cred-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+.cred-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 32px -20px rgba(28, 27, 25, 0.45);
+}
+.cred-img {
+  border-bottom: 1px solid var(--line);
+  background: #f2efe8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+.cred-img img {
+  width: 100%;
+  height: auto;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+.cred-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.cred-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.cred-level {
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+.cred-date {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.cred-body h3 {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.cred-issuer {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+.cred-line {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 4px 0 0;
+  flex: 1;
+}
+.cred-takeaway {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--accent);
+  border-left: 2px solid var(--accent);
+  padding-left: 12px;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+/* ---------- 证照收藏（小卡） ---------- */
+.coll-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.coll-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+.coll-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 30px -20px rgba(28, 27, 25, 0.4);
+}
+.coll-img {
+  border-bottom: 1px solid var(--line);
+  background: #f2efe8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.coll-img img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+.coll-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.coll-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.coll-head h3 {
+  font-size: 17px;
+  line-height: 1.4;
+}
+.coll-date {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  flex: none;
+}
+.coll-issuer {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+.coll-line {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 2px 0 0;
+}
+
 /* ---------- 渠道矩阵（在这里找到我） ---------- */
 .channel-grid {
   display: grid;
@@ -866,7 +1025,9 @@ footer .data-date {
 @media (max-width: 860px) {
   .top3,
   .works-grid,
-  .method-grid {
+  .method-grid,
+  .cred-grid,
+  .coll-grid {
     grid-template-columns: 1fr;
   }
   .learning-grid,

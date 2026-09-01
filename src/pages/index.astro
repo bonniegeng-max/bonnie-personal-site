@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getSkills, getStats } from '../lib/skills';
-import { ARTICLES, TIMELINE, METHOD_CASES, LEARNING, CHANNELS } from '../lib/content';
+import { ARTICLES, TIMELINE, METHOD_CASES, LEARNING, CHANNELS, CREDENTIALS, COLLECTION } from '../lib/content';
 
 const skills = await getSkills();
 const stats = await getStats();
@@ -164,7 +164,39 @@ const otherArticles = ARTICLES.filter((a) => !a.featured);
     </div>
   </section>
 
-  <!-- ③ 方法与声音 -->
+  <!-- ③ 专业资质：能佐证专业能力的硬证书 -->
+  <section id="credentials">
+    <div class="wrap">
+      <p class="sec-lede display">— 作品是结果，资质是我怎么系统化学习的旁证。</p>
+      <div class="sec-head">
+        <h2 class="display">专业资质</h2>
+        <div class="note">证书信息已打码 · 图片为原件马赛克版</div>
+      </div>
+
+      <div class="cred-grid">
+        {
+          CREDENTIALS.map((c) => (
+            <article class="cred-card reveal">
+              <div class="cred-img">
+                <img src={c.img} alt={`${c.name} 证书`} loading="lazy" />
+              </div>
+              <div class="cred-body">
+                <div class="cred-tags">
+                  <span class="cred-date">{c.date}</span>
+                </div>
+                <h3>{c.name}</h3>
+                <p class="cred-issuer">{c.issuer}</p>
+                <p class="cred-line">{c.story}</p>
+                <div class="cred-takeaway">{c.takeaway}</div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 方法与声音 -->
   <section id="method">
     <div class="wrap">
       <p class="sec-lede display">— 怎么想的，比怎么做的更值得看。</p>
@@ -267,7 +299,38 @@ const otherArticles = ARTICLES.filter((a) => !a.featured);
     </div>
   </section>
 
-  <!-- ④ 在这里找到我（渠道矩阵） -->
+  <!-- ⑤ 证照收藏：和工作无关、纯因好奇去考的 -->
+  <section id="collection">
+    <div class="wrap">
+      <p class="sec-lede display">— 这些证帮不上简历，但帮我记住了好奇心的来路。</p>
+      <div class="sec-head">
+        <h2 class="display">证照收藏</h2>
+        <div class="note">一些没派上用场、但考得很开心的证</div>
+      </div>
+
+      <div class="coll-grid">
+        {
+          COLLECTION.map((c) => (
+            <article class="coll-card reveal">
+              <div class="coll-img">
+                <img src={c.img} alt={`${c.name} 证书`} loading="lazy" />
+              </div>
+              <div class="coll-body">
+                <div class="coll-head">
+                  <h3>{c.name}</h3>
+                  <span class="coll-date">{c.date}</span>
+                </div>
+                <p class="coll-issuer">{c.issuer}</p>
+                <p class="coll-line">{c.story}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ 在这里找到我（渠道矩阵） -->
   <section id="contact" class="contact">
     <div class="wrap">
       <p class="sec-lede display">— 我散在各处的输出，这里是一个集合入口。</p>
