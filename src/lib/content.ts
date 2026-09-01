@@ -26,6 +26,14 @@ export const ARTICLES: Article[] = [
     desc: '从翻出一本旧李白诗集，到用 AI 把「生活场景」和「学过的诗」连起来——记录「诗遇」从一个 nightly routine 长成可发布 skill 的全过程。',
     url: 'https://mp.weixin.qq.com/s/6cjNWyjWlha-ZuqsNeXY7A',
   },
+  {
+  date: '2026-09-01',
+  tag: '公众号 · skill 实录',
+  title: '忙但空的时候，我给 AI 写了一个不催我的教练',
+  desc: '番茄钟和 Notion 的隐含假设是「你还不够努力」。照着《会赚时间的妈妈》的 6×2 优先级法，做了一个反着来的教练 skill：不排满一天、先接住人——温柔不是装饰，是功能。',
+  url: 'https://mp.weixin.qq.com/s/dAGTVmv3QnLlRi3bdNP2fQ',
+},
+
 ];
 
 export interface TimelineItem {
