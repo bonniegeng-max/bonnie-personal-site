@@ -62,6 +62,12 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
     description:
       '解决「被焦虑、反刍、自我怀疑困住、想分清哪些是自己能控制的」的问题：教练式逐问引导完成 26 项斯多葛刻意练习，长期记录与「看清」，慢慢积累出属于自己的困境地图。',
   },
+    'text-to-infographic': {
+    displayName: 'text-to-infographic',
+    description:
+      '解决「复杂信息说不清」的问题：把工作流、框架、分析笔记一键转成可嵌入飞书文档的单页信息图——输出结构化 plan，渲染自包含 HTML，也可导出 PNG/SVG。',
+  },
+
 };
 
 // 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库
