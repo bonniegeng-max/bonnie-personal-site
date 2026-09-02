@@ -53,6 +53,16 @@ const CURATED: Record<
     description:
       '解决「忙但空、找不到重点」的问题：一个温和不压迫的个人成长教练，用 5 个问题收敛出当前最该优先的 3 件事——时间管理的核心不是做更多，是定优先级。',
   },
+  'weread-socrates': {
+    displayName: 'weread-socrates',
+    description:
+      '解决「读完就忘、划了一堆线却没读进去」的问题：对接微信读书的 AI 伴读教练——全书结构思维导图（非虚构拆框架 / 虚构理人物关系）、万人热门划线对照，再用苏格拉底式 5 轮追问把一本书读透，笔记一键导出。',
+  },
+  'museum-explorer': {
+    displayName: 'museum-explorer',
+    description:
+      '解决「看展走马观花、看完就忘」的问题：行前核验票价与开放时间、生成重点展品策展卡；行中极简核对清单；行后文物打卡印章 + 可打印电子手帐。展品史实双来源交叉核验，平时积累、下次看展直接复用。',
+  },
 };
 
 // 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）在此手写登记。
