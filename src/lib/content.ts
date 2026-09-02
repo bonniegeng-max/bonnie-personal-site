@@ -26,14 +26,6 @@ export const ARTICLES: Article[] = [
     desc: '从翻出一本旧李白诗集，到用 AI 把「生活场景」和「学过的诗」连起来——记录「诗遇」从一个 nightly routine 长成可发布 skill 的全过程。',
     url: 'https://mp.weixin.qq.com/s/6cjNWyjWlha-ZuqsNeXY7A',
   },
-  {
-  date: '2026-09-01',
-  tag: '公众号 · skill 实录',
-  title: '忙但空的时候，我给 AI 写了一个不催我的教练',
-  desc: '番茄钟和 Notion 的隐含假设是「你还不够努力」。照着《会赚时间的妈妈》的 6×2 优先级法，做了一个反着来的教练 skill：不排满一天、先接住人——温柔不是装饰，是功能。',
-  url: 'https://mp.weixin.qq.com/s/dAGTVmv3QnLlRi3bdNP2fQ',
-},
-
 ];
 
 export interface TimelineItem {
@@ -156,6 +148,11 @@ export const INTERESTS: InterestItem[] = [
     name: '小游戏',
     desc: 'Q 萌麻将 · 消消乐——练编程顺手的副产品',
   },
+  {
+    name: '像素冒险主页',
+    desc: '跟着老师做的 RPG 打卡主页——把日常任务接成冒险，完成 +20 EXP，攒满 100 升级',
+    url: 'https://workbuddy.link/p/4KfGsZ4mEo8vxNTi2bw8Py',
+  },
 ];
 
 export interface MethodCase {
@@ -186,63 +183,5 @@ export const METHOD_CASES: MethodCase[] = [
     body: '策略评估、Prompt 迭代、小模型训练，各自闭环又互相喂养——评审数据回流为训练正例。机审只作人审的辅助信号；Prompt 改动全部结构化可回溯；模型在高精度硬约束下自动准入，发布后先空跑再送处置。',
     takeaway: '以评促建、以建带评——流水线不替代人，是把人从执行挪到决策。',
     diagram: 'pipelines',
-  },
-];
-
-// 「专业资质」：能佐证专业能力的硬证书，正经展示（数据驱动 · 叙事偏能力）。
-// 文案延续"自驱力 / 学习力"叙事——考证不是为了挂证，是为了把某套框架装进脑子。
-export interface Credential {
-  name: string; // 证书名称
-  issuer: string; // 发证机构
-  date: string; // 发证 / 批准日期
-  img: string; // 马赛克打码后的证书图
-  story: string; // 一句话：为什么考、学到什么（自驱力叙事）
-  takeaway: string; // 一句话方法论 / 价值落点
-}
-
-export const CREDENTIALS: Credential[] = [
-  {
-    name: '信息系统项目管理师（高级）',
-    issuer: '人力资源和社会保障部 · 工业和信息化部',
-    date: '2024-05',
-    img: '/certs/ruankao-project-manager.jpg',
-    story: '花半年啃下国家软考高项——不为挂证，为把项目管理的完整框架装进脑子。范围、进度、风险、干系人，那套体系后来在带项目时成了底气。',
-    takeaway: '软技能也可以"系统地学"——知识不落地，不叫掌握。',
-  },
-  {
-    name: '大模型应用开发工程师（中级）',
-    issuer: '工业和信息化部人才交流中心 · IITC',
-    date: '2026-05',
-    img: '/certs/llm-app-engineer.jpg',
-    story: 'AI 迭代太快，与其等工具变得好用，不如主动去摸它背后的工程逻辑。从 prompt 工程到 RAG 到评测，这个证是过程证明，不是终点。',
-    takeaway: '等风口不如自己先站上去——学习力是比技能更稳的护城河。',
-  },
-  {
-    name: '数字化数据分析师（中级）',
-    issuer: '工业和信息化部人才交流中心 · IITC',
-    date: '2025-01',
-    img: '/certs/data-analyst.jpg',
-    story: '从 Excel 到 SQL 再到业务指标体系，考这个证是为了让"用数据说话"不只是口头禅——拿数据推结论，和拿经验拍脑袋，是两种决策。',
-    takeaway: '"用数据说话"不是立场，是一套可习得的动作。',
-  },
-];
-
-// 「证照收藏」：与工作无关、纯因好奇去考的，放页面尾部轻松呈现。
-// 文案走"学习痕迹"的轻松叙事，体现自驱力与好奇心，但不过度自夸。
-export interface CollectionItem {
-  name: string; // 证书 / 认证名称
-  issuer: string;
-  date: string;
-  img: string;
-  story: string; // 轻松版文案，带人味
-}
-
-export const COLLECTION: CollectionItem[] = [
-  {
-    name: '人工智能训练师（初级）',
-    issuer: '百度智能云',
-    date: '2024-08',
-    img: '/certs/ai-trainer-baidu.jpg',
-    story: '大模型刚火起来那阵，别人都在问"这玩意儿能干嘛"，我在查"怎么训练一个"。虽是入门级，但确实记录了那段追风日子的好奇心。',
   },
 ];
