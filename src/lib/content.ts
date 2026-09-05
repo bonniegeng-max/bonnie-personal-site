@@ -207,6 +207,14 @@ export interface Credential {
 
 export const CREDENTIALS: Credential[] = [
   {
+    name: 'Project Management Professional (PMP)',
+    issuer: 'Project Management Institute · PMI',
+    date: '2023-08',
+    img: '/certs/cert-pmp.png',
+    story: '十年项目管理实战下来，很多动作是"手感"不是"章法"。2023 年考下这张国际证，把散落的手感补成 PMI 的体系框架——经验先于证书，证书把经验校准成体系。',
+    takeaway: '经验是散点，体系是把散点连成线的那根绳。',
+  },
+  {
     name: '信息系统项目管理师（高级）',
     issuer: '人力资源和社会保障部 · 工业和信息化部',
     date: '2024-05',
