@@ -65,7 +65,8 @@ const CURATED: Record<
   },
 };
 
-// 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）在此手写登记。
+// 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）的手写兜底文案。
+// 展示名 / 摘要优先用 ClawHub API 返回值，这里只作 API 失败时的兜底。
 const CLAWHUB: Record<string, { displayName: string; description: string; caseUrl?: string }> = {
   'stoic-coach': {
     displayName: 'stoic-coach',
@@ -80,9 +81,41 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
 
 };
 
-// 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库
+// ClawHub 全量 slug 清单。ClawHub 没有 publisher 级公开列表 API，slug 需手工登记，
+// 新发布 skill 后要来这里补一行（对照 clawhub.ai/<username> 主页的 Skills 数）。
+// 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）。
+const CLAWHUB_SLUGS: string[] = [
+  'beauty-offer-auditor',
+  'poetry-resonance',
+  'github-actions-clawhub-doctor',
+  'text-to-comic',
+  'text-to-infographic',
+  'md-out-of-chat',
+  'museum-explorer',
+  'skill-portfolio-growth-audit',
+  'skill-positioning-audit',
+  'skill-publish-readiness',
+  'release-proof-builder',
+  'emoji-sticker-cn',
+  'stoic-coach',
+  'skill-summary-rewriter',
+  'weread-socrates',
+  'free-course-share',
+  'priority-coach',
+  'video-digest',
+  'xiaohongshu-prohibited-words',
+];
+
+// 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库，
+// 以及暂不展示的仓库（price-gap-map / token-optimizer，Bonnie 2026-09-12 定：描述补齐后再上）
 function isExcludedRepo(name: string, username: string): boolean {
-  return name === username || name === 'bonnie-personal-site' || name.endsWith('.github.io');
+  return (
+    name === username ||
+    name === 'bonnie-personal-site' ||
+    name.endsWith('.github.io') ||
+    name === 'price-gap-map' ||
+    name === 'token-optimizer'
+  );
 }
 
 // 构建时拉 GitHub 公开仓库
@@ -136,28 +169,59 @@ function clawHubList(username: string): { slug: string; skill: Skill }[] {
   });
 }
 
-// ClawHub 官方 API：查询每个 skill 的分项下载量（公开端点，无需鉴权）。
-async function getClawHubDownloads(
-  username: string,
-  slugs: string[]
-): Promise<Record<string, number>> {
-  const out: Record<string, number> = {};
+// ClawHub 官方分项接口：每个 skill 的展示名、摘要与下载量（公开端点，无需鉴权）。
+// 一次拉全量 slug，返回目录 + 累计下载；构建进程内用缓存避免 getSkills/getStats 重复请求。
+async function fetchClawHubCatalog(
+  username: string
+): Promise<{ skills: Skill[]; totalDownloads: number }> {
+  const skills: Skill[] = [];
   await Promise.all(
-    slugs.map(async (slug) => {
+    CLAWHUB_SLUGS.map(async (slug) => {
+      const cur = CURATED[slug];
+      const fb = CLAWHUB[slug];
+      const base: Skill = {
+        name: slug,
+        displayName: cur?.displayName ?? fb?.displayName ?? slug,
+        description: cur?.description ?? fb?.description ?? 'AI 小工具 / skill。',
+        url: `https://clawhub.ai/${username}/${slug}`,
+        source: 'clawhub',
+        install: cur?.install ?? `openclaw skills install @${username}/${slug}`,
+        caseUrl: cur?.caseUrl ?? fb?.caseUrl,
+        updated: '—',
+        stars: 0,
+      };
       try {
         const r = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, {
           headers: { Accept: 'application/json', 'User-Agent': username },
         });
-        if (!r.ok) return;
+        if (!r.ok) throw new Error('clawhub ' + r.status);
         const d = await r.json();
-        const dl = d?.skill?.stats?.downloads;
-        if (typeof dl === 'number' && dl > 0) out[slug] = dl;
+        const s = d?.skill ?? {};
+        const st = s.stats ?? {};
+        const updated =
+          typeof s.updatedAt === 'number' ? new Date(s.updatedAt).toISOString().slice(0, 10) : '—';
+        skills.push({
+          ...base,
+          displayName: cur?.displayName ?? fb?.displayName ?? s.displayName ?? slug,
+          description: cur?.description ?? fb?.description ?? s.summary ?? base.description,
+          updated,
+          stars: st.stars || 0,
+          downloads: typeof st.downloads === 'number' ? st.downloads : 0,
+        });
       } catch {
-        // 单个失败跳过，不影响其他
+        // 单个失败用兜底文案，下载量计 0，不影响其他
+        skills.push(base);
       }
     })
   );
-  return out;
+  const totalDownloads = skills.reduce((a, s) => a + (s.downloads || 0), 0);
+  return { skills, totalDownloads };
+}
+
+let catalogCache: Promise<{ skills: Skill[]; totalDownloads: number }> | null = null;
+function getClawHubCatalog(username: string) {
+  if (!catalogCache) catalogCache = fetchClawHubCatalog(username);
+  return catalogCache;
 }
 
 // 排序：ClawHub 下载数倒序；无下载数的按更新时间倒序垫底
@@ -170,31 +234,41 @@ function sortSkills(list: Skill[]): Skill[] {
   });
 }
 
-// 合并 GitHub + ClawHub；同名 skill 以 GitHub 为准去重
+// 合并 GitHub + ClawHub；同名 skill 以 GitHub 为准去重，ClawHub 下载量补给 GitHub 条目
 export async function getSkills(username = USERNAME): Promise<Skill[]> {
-  const gh = await getGitHubSkills(username);
+  const [{ skills: chAll }, ghRaw] = await Promise.all([
+    getClawHubCatalog(username),
+    getGitHubSkills(username),
+  ]);
+  const gh = ghRaw;
   const ghNames = new Set(gh.map((s) => s.name.toLowerCase()));
-  const ch = clawHubList(username)
-    .filter(({ slug }) => !ghNames.has(slug))
-    .map(({ skill }) => skill);
+  for (const s of gh) {
+    const match = chAll.find((c) => c.name.toLowerCase() === s.name.toLowerCase());
+    if (match?.downloads) s.downloads = match.downloads;
+    // GitHub 仓库没写描述时，借用 ClawHub 的摘要（避免站点出现占位文案）
+    const placeholder = 'AI 小工具 / skill。';
+    if ((!s.description || s.description === placeholder) && match?.description) {
+      s.description = match.description;
+    }
+  }
+  const ch = chAll.filter((s) => !ghNames.has(s.name.toLowerCase()));
   const merged = [...gh, ...ch];
   if (!merged.length) return sortSkills(fallback(username));
-  const dl = await getClawHubDownloads(username, [
-    ...Object.keys(CURATED),
-    ...Object.keys(CLAWHUB),
-  ]);
-  for (const s of merged) {
-    if (dl[s.name] !== undefined) s.downloads = dl[s.name];
-  }
   return sortSkills(merged);
 }
 
-// 站点统计：skill 数、累计下载、数据截至日期（用于首屏数字行与页脚）
+// 站点统计：skill 数、累计下载（ClawHub 全量 18 项之和）、数据截至日期
 export async function getStats(username = USERNAME): Promise<SiteStats> {
-  const skills = await getSkills(username);
-  const totalDownloads = skills.reduce((a, s) => a + (s.downloads || 0), 0);
+  const [{ skills, totalDownloads }, gh] = await Promise.all([
+    getClawHubCatalog(username),
+    getGitHubSkills(username),
+  ]);
+  const mergedCount = new Set([
+    ...gh.map((s) => s.name.toLowerCase()),
+    ...skills.map((s) => s.name.toLowerCase()),
+  ]).size;
   return {
-    skillCount: skills.length,
+    skillCount: mergedCount,
     totalDownloads,
     dataDate: new Date().toISOString().slice(0, 10),
     live: true,
