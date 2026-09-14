@@ -20,6 +20,13 @@ export const ARTICLES: Article[] = [
     featured: true,
   },
   {
+    date: '2026-09-08',
+    tag: '公众号 · 建站复盘',
+    title: '一行代码没写，我 7 天上线了个人网站',
+    desc: '从决定建站到 bonnieai.me 上线只用 7 天，一行代码没写。技术坑 AI 都能填平，真正难的是三件 AI 替代不了的事：敢对「能看」的版本说重来，定位靠回头看证据，数据再小也只放真的。',
+    url: 'https://mp.weixin.qq.com/s/TqkYAANvLSPMHiVKoHn8zA',
+  },
+  {
     date: '2026-08-24',
     tag: '公众号 · skill 实录',
     title: '一本翻出来的李白，变成了每晚九点响的闹钟',
