@@ -205,14 +205,39 @@ export interface Credential {
   takeaway: string; // 一句话方法论 / 价值落点
 }
 
+// 按取得时间倒序：2026-05 → 2025-11 → 2025-04 → 2025-01 → 2024-05 → 2023-08
 export const CREDENTIALS: Credential[] = [
   {
-    name: 'Project Management Professional (PMP)',
-    issuer: 'Project Management Institute · PMI',
-    date: '2023-08',
-    img: '/certs/cert-pmp.png',
-    story: '十年项目管理实战下来，很多动作是"手感"不是"章法"。2023 年考下这张国际证，把散落的手感补成 PMI 的体系框架——经验先于证书，证书把经验校准成体系。',
-    takeaway: '经验是散点，体系是把散点连成线的那根绳。',
+    name: '大模型应用开发工程师（中级）',
+    issuer: '工业和信息化部人才交流中心 · IITC',
+    date: '2026-05',
+    img: '/certs/llm-app-engineer.jpg',
+    story: 'AI 迭代太快，与其等工具变得好用，不如主动去摸它背后的工程逻辑。从 prompt 工程到 RAG 到评测，这个证是过程证明，不是终点。',
+    takeaway: '等风口不如自己先站上去——学习力是比技能更稳的护城河。',
+  },
+  {
+    name: '深度学习架构师（中级）',
+    issuer: '工业和信息化部人才交流中心 · IITC',
+    date: '2025-11',
+    img: '/certs/dl-architect.jpg',
+    story: '大模型应用层玩顺了之后，开始好奇底下那层：模型到底怎么训练、怎么优化。备考把 CNN、Transformer、训练调优的骨架捋了一遍——从"会用"往"懂原理"又下探了一层。',
+    takeaway: '应用会迭代，原理不会过期——往下多挖一层，选择就多一层。',
+  },
+  {
+    name: '信创集成项目管理师（高级）',
+    issuer: '工业和信息化部教育与考试中心',
+    date: '2025-04',
+    img: '/certs/xinchuang-integration-pm.jpg',
+    story: '这张至今没用上过，考试当天还跟别的事撞档期——但信创是国产化替代的大盘，项目管理方法怎么迁移到自主可控场景，值得为它专门跑一趟。',
+    takeaway: '"有用"是考完之后的事，"想搞明白"才是报名那天的事。',
+  },
+  {
+    name: '数字化数据分析师（中级）',
+    issuer: '工业和信息化部人才交流中心 · IITC',
+    date: '2025-01',
+    img: '/certs/data-analyst.jpg',
+    story: '从 Excel 到 SQL 再到业务指标体系，考这个证是为了让"用数据说话"不只是口头禅——拿数据推结论，和拿经验拍脑袋，是两种决策。',
+    takeaway: '"用数据说话"不是立场，是一套可习得的动作。',
   },
   {
     name: '信息系统项目管理师（高级）',
@@ -223,20 +248,12 @@ export const CREDENTIALS: Credential[] = [
     takeaway: '软技能也可以"系统地学"——知识不落地，不叫掌握。',
   },
   {
-    name: '大模型应用开发工程师（中级）',
-    issuer: '工业和信息化部人才交流中心 · IITC',
-    date: '2026-05',
-    img: '/certs/llm-app-engineer.jpg',
-    story: 'AI 迭代太快，与其等工具变得好用，不如主动去摸它背后的工程逻辑。从 prompt 工程到 RAG 到评测，这个证是过程证明，不是终点。',
-    takeaway: '等风口不如自己先站上去——学习力是比技能更稳的护城河。',
-  },
-  {
-    name: '数字化数据分析师（中级）',
-    issuer: '工业和信息化部人才交流中心 · IITC',
-    date: '2025-01',
-    img: '/certs/data-analyst.jpg',
-    story: '从 Excel 到 SQL 再到业务指标体系，考这个证是为了让"用数据说话"不只是口头禅——拿数据推结论，和拿经验拍脑袋，是两种决策。',
-    takeaway: '"用数据说话"不是立场，是一套可习得的动作。',
+    name: 'Project Management Professional (PMP)',
+    issuer: 'Project Management Institute · PMI',
+    date: '2023-08',
+    img: '/certs/cert-pmp.png',
+    story: '十年项目管理实战下来，很多动作是"手感"不是"章法"。2023 年考下这张国际证，把散落的手感补成 PMI 的体系框架——经验先于证书，证书把经验校准成体系。',
+    takeaway: '经验是散点，体系是把散点连成线的那根绳。',
   },
 ];
 
