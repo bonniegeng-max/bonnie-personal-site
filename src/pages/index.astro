@@ -7,8 +7,7 @@ const skills = await getSkills();
 const stats = await getStats();
 const top3 = skills.slice(0, 3);
 const rest = skills.slice(3);
-const featuredArticle = ARTICLES.filter((a) => a.featured);
-const otherArticles = ARTICLES.filter((a) => !a.featured);
+const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
 ---
 
 <BaseLayout
@@ -274,7 +273,7 @@ const otherArticles = ARTICLES.filter((a) => !a.featured);
       <div class="rest-head">公众号文章</div>
       <div class="cards articles">
         {
-          [...featuredArticle, ...otherArticles].map((a) => (
+          articles.map((a) => (
             <article class="card reveal">
               <span class="tag">
                 {a.tag}
