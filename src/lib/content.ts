@@ -12,12 +12,11 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
-    date: '2026-08-04',
-    tag: '公众号 · Context Engineering',
-    title: '给 AI 助手做了一次体检，发现体检仪器是坏的',
-    desc: '一个非工程师运营，用 378 次模型调用给 AI 助手的上下文文件做消融测试，揪出三个「长得像真结论」的假结论。核心一句：你塞进上下文的东西，模型真的在用吗？',
-    url: 'https://mp.weixin.qq.com/s/Trr6g7fA32nSuYXp3Rvi0g',
-    featured: true,
+    date: '2026-09-15',
+    tag: '公众号 · AI 伴读',
+    title: '我跟 AI 聊了一下午裸辞，它一句没劝我',
+    desc: '重读曼昆《经济学原理》，把「看剧」和「裸辞」两笔账重新记了一遍：机会成本是「用途」不是「时间」，模糊的那边从没被标过价；AI 抹掉执行层分工，抹不掉判断层——你不是败给意志力，是败给一张写歪了的价目表。',
+    url: 'https://mp.weixin.qq.com/s/QPEnr62H5rsM9cgdwvsVQQ',
   },
   {
     date: '2026-09-08',
@@ -27,6 +26,13 @@ export const ARTICLES: Article[] = [
     url: 'https://mp.weixin.qq.com/s/TqkYAANvLSPMHiVKoHn8zA',
   },
   {
+    date: '2026-09-01',
+    tag: '公众号 · skill 实录',
+    title: '忙但空的时候，我给 AI 写了一个不催我的教练',
+    desc: '番茄钟和 Notion 的隐含假设是「你还不够努力」。照着《会赚时间的妈妈》的 6×2 优先级法，做了一个反着来的教练 skill：不排满一天、先接住人——温柔不是装饰，是功能。',
+    url: 'https://mp.weixin.qq.com/s/dAGTVmv3QnLlRi3bdNP2fQ',
+  },
+  {
     date: '2026-08-24',
     tag: '公众号 · skill 实录',
     title: '一本翻出来的李白，变成了每晚九点响的闹钟',
@@ -34,13 +40,13 @@ export const ARTICLES: Article[] = [
     url: 'https://mp.weixin.qq.com/s/6cjNWyjWlha-ZuqsNeXY7A',
   },
   {
-  date: '2026-09-01',
-  tag: '公众号 · skill 实录',
-  title: '忙但空的时候，我给 AI 写了一个不催我的教练',
-  desc: '番茄钟和 Notion 的隐含假设是「你还不够努力」。照着《会赚时间的妈妈》的 6×2 优先级法，做了一个反着来的教练 skill：不排满一天、先接住人——温柔不是装饰，是功能。',
-  url: 'https://mp.weixin.qq.com/s/dAGTVmv3QnLlRi3bdNP2fQ',
-},
-
+    date: '2026-08-04',
+    tag: '公众号 · Context Engineering',
+    title: '给 AI 助手做了一次体检，发现体检仪器是坏的',
+    desc: '一个非工程师运营，用 378 次模型调用给 AI 助手的上下文文件做消融测试，揪出三个「长得像真结论」的假结论。核心一句：你塞进上下文的东西，模型真的在用吗？',
+    url: 'https://mp.weixin.qq.com/s/Trr6g7fA32nSuYXp3Rvi0g',
+    featured: true,
+  },
 ];
 
 export interface TimelineItem {
