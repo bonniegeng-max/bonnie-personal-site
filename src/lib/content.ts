@@ -91,18 +91,18 @@ export interface LearningItem {
 
 export const LEARNING: LearningItem[] = [
   {
-    what: '模型评估体系',
-    why: 'LLM 特有的那套评估：幻觉率、有用性、human eval——正好接着消融测试那篇往下写',
-    status: '搭框架中',
+    what: 'AI 编程体系课（直播进行中）',
+    why: 'OpenClaw 建站获客 → Codex 做 CRM → Claude Code 搭企业级多 Agent——把「用 AI 做产品」的全链路亲手走一遍',
+    status: '当前阶段：Claude Code 企业级项目 + AI SaaS 产品实战',
   },
   {
-    what: 'RAG 应用开发',
-    why: '接真实数据源的知识库问答，把「人↔机器翻译」从治理场景搬到自己的项目里',
-    status: '筹备中',
+    what: 'AI 算法系统课（AIE 59 期）',
+    why: '从 KNN、CNN 到 Transformer、RLHF——补齐机器侧的语言，「人↔机翻译」才两边都懂',
+    status: '直播进行中 · 已过机器学习与深度学习，进入视觉与 NLP',
   },
   {
     what: '部署与发布链路',
-    why: 'Docker、域名、上线——本站就是练习场',
+    why: 'Docker、域名、上线——本站就是练习场，课里也在讲 ECS 与云端部署闭环',
     status: '边做边学',
   },
 ];
