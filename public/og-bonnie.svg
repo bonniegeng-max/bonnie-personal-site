@@ -1,0 +1,37 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F6F1"/>
+      <stop offset="1" stop-color="#F3EEE7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1006 118) rotate(134.8) scale(286 320)">
+      <stop stop-color="#C8553D" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#C8553D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" rx="36" fill="url(#bg)"/>
+  <rect x="28" y="28" width="1144" height="574" rx="28" stroke="#DED7CC" stroke-width="2"/>
+  <ellipse cx="1006" cy="118" rx="272" ry="220" fill="url(#glow)"/>
+
+  <text x="72" y="96" fill="#C8553D" font-size="22" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" letter-spacing="4">BONNIE · PERSONAL SITE</text>
+
+  <text x="72" y="196" fill="#1C1B19" font-size="62" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">增长、治理、AI 协作，</text>
+  <text x="72" y="276" fill="#1C1B19" font-size="62" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">本质上都是同一种</text>
+  <text x="72" y="356" fill="#1C1B19" font-size="62" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">翻译工作。</text>
+
+  <text x="72" y="438" fill="#6B6760" font-size="27" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">10 年运营经验：平台增长 × 内容治理</text>
+  <text x="72" y="480" fill="#6B6760" font-size="27" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">现在用 AI 把经验做成作品、方法和公开写作</text>
+
+  <g>
+    <rect x="72" y="522" width="252" height="48" rx="24" fill="#C8553D" fill-opacity="0.12"/>
+    <text x="102" y="553" fill="#C8553D" font-size="22" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">作品 / 方法 / 背景 / 联系</text>
+  </g>
+
+  <g opacity="0.97">
+    <rect x="816" y="384" width="292" height="154" rx="24" fill="#FFFDF9" stroke="#DED7CC"/>
+    <text x="848" y="428" fill="#C8553D" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" letter-spacing="2">PROFILE</text>
+    <text x="848" y="468" fill="#1C1B19" font-size="28" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">平台增长</text>
+    <text x="848" y="504" fill="#1C1B19" font-size="28" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">内容治理</text>
+    <text x="848" y="540" fill="#1C1B19" font-size="28" font-weight="700" font-family="Noto Serif SC, Songti SC, SimSun, serif">AI 协作实践</text>
+  </g>
+</svg>

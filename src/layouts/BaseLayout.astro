@@ -11,6 +11,27 @@ interface Props {
 const { title, description, path = '/', dataDate } = Astro.props;
 const site = Astro.site ?? new URL('https://bonnieai.me');
 const canonical = new URL(path, site).href;
+const ogImage = new URL('/og-bonnie.svg', site).href;
+const footerGroups = [
+  {
+    title: '继续看',
+    links: [
+      { label: '职业主线', href: '/#story' },
+      { label: '作品现场', href: '/#works' },
+      { label: '专业资质', href: '/#credentials' },
+      { label: '方法与文章', href: '/#method' },
+    ],
+  },
+  {
+    title: '常用入口',
+    links: [
+      { label: '全部作品', href: '/works' },
+      { label: 'GitHub', href: 'https://github.com/bonniegeng-max', external: true },
+      { label: '发送邮件', href: 'mailto:littlebonnie.geng@qq.com', external: true },
+      { label: '联系入口', href: '/#contact' },
+    ],
+  },
+];
 ---
 
 <!doctype html>
@@ -25,7 +46,17 @@ const canonical = new URL(path, site).href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:site_name" content="Bonnie" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bonnie 个人主页分享图：增长、治理、AI 协作，本质上都是同一种翻译工作。" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Bonnie 个人主页分享图：增长、治理、AI 协作，本质上都是同一种翻译工作。" />
     <!-- 字体：非阻塞加载，国内加载失败自动回退系统衬线/无衬线 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,16 +77,16 @@ const canonical = new URL(path, site).href;
   </head>
   <body>
     <header class="nav">
-      <div class="wrap">
+      <div class="wrap nav-wrap">
         <a class="logo" href="/">Bonnie<span>.</span></a>
         <nav>
           <ul>
-            <li><a href="/#works">作品现场</a></li>
-            <li><a href="/#credentials">专业资质</a></li>
-            <li><a href="/#method">方法与声音</a></li>
-            <li><a href="/#collection">证照收藏</a></li>
-            <li><a href="/works">全部作品</a></li>
-            <li><a href="/#contact">联系</a></li>
+            <li><a data-section-link href="/#works">作品现场</a></li>
+            <li><a data-section-link href="/#credentials">专业资质</a></li>
+            <li><a data-section-link href="/#method">方法与声音</a></li>
+            <li><a data-section-link href="/#collection">证照收藏</a></li>
+            <li><a data-page-link href="/works">全部作品</a></li>
+            <li><a data-section-link href="/#contact">联系</a></li>
           </ul>
         </nav>
       </div>
@@ -66,11 +97,27 @@ const canonical = new URL(path, site).href;
     </main>
 
     <footer>
-      <div class="wrap">
-        <p>
-          © 2026 Bonnie · 用 Astro 构建 · Bonnie 与 AI 协作完成 ·
-          <span class="data-date">数据截至 {dataDate}</span>
-        </p>
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo display">Bonnie.</div>
+          <p>增长、治理、AI 协作，我一直在做同一种翻译工作。</p>
+          <div class="footer-meta">
+            <span>© 2026 Bonnie</span>
+            {dataDate && <span class="data-date">数据截至 {dataDate}</span>}
+          </div>
+        </div>
+        {footerGroups.map((group) => (
+          <div class="footer-group">
+            <div class="footer-title">{group.title}</div>
+            <div class="footer-links">
+              {group.links.map((item) => (
+                <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </footer>
 
@@ -87,6 +134,35 @@ const canonical = new URL(path, site).href;
         { threshold: 0.05, rootMargin: '0px 0px 40px 0px' }
       );
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      const sectionLinks = [...document.querySelectorAll('a[data-section-link]')];
+      const pageLinks = [...document.querySelectorAll('a[data-page-link]')];
+      const setActiveSection = (id) => {
+        sectionLinks.forEach((link) => {
+          const hash = link.getAttribute('href')?.split('#')[1];
+          link.classList.toggle('active', Boolean(id) && hash === id);
+        });
+      };
+      pageLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === location.pathname);
+      });
+
+      if (location.pathname === '/') {
+        const sections = sectionLinks
+          .map((link) => document.getElementById(link.getAttribute('href')?.split('#')[1] || ''))
+          .filter(Boolean);
+        const updateActiveSection = () => {
+          const checkpoint = window.scrollY + 160;
+          let current = null;
+          sections.forEach((section) => {
+            if (checkpoint >= section.offsetTop) current = section.id;
+          });
+          setActiveSection(current);
+        };
+        updateActiveSection();
+        window.addEventListener('scroll', updateActiveSection, { passive: true });
+        window.addEventListener('hashchange', () => setActiveSection(location.hash.replace('#', '')));
+      }
 
       // 兜底：2s 后仍未入场的全部显示（应对无滚动场景 / 截图 / 爬虫 / 辅助技术）
       window.addEventListener('load', () => {
