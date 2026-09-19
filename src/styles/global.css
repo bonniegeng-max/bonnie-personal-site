@@ -488,7 +488,6 @@ section {
 .method-card p {
   font-size: 14.5px;
   color: var(--muted);
-  flex: 1;
 }
 .method-card .takeaway {
   font-family: var(--serif);
@@ -521,6 +520,29 @@ section {
   color: var(--muted);
   line-height: 1.55;
   margin-bottom: 3px;
+}
+.more-points[hidden] {
+  display: none;
+}
+.expand-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.expand-btn:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+.expand-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 /* ---------- 第三张方法卡：通栏 + 流水线图 ---------- */

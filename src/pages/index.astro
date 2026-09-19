@@ -8,6 +8,20 @@ const stats = await getStats();
 const top3 = skills.slice(0, 3);
 const rest = skills.slice(3);
 const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+
+// 方法卡渲染预处理：拆导语段与要点列表（普通卡要点 >3 条时折叠，展开看全文）
+const methodCases = METHOD_CASES.map((c) => {
+  if (c.diagram === 'pipelines') {
+    return { ...c, wide: true, paras: [] as string[], points: [] as string[] };
+  }
+  const lines = c.body.split('\n').filter((l) => l.trim());
+  return {
+    ...c,
+    wide: false,
+    paras: lines.filter((l) => !l.startsWith('•')),
+    points: lines.filter((l) => l.startsWith('•')).map((l) => l.replace(/^•\s*/, '')),
+  };
+});
 ---
 
 <BaseLayout
@@ -202,8 +216,8 @@ const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
 
       <div class="method-grid">
         {
-          METHOD_CASES.map((c) =>
-            c.diagram === 'pipelines' ? (
+          methodCases.map((c) =>
+            c.wide ? (
               <article class="method-card wide reveal">
                 <div class="wide-text">
                   <span class="tag">{c.era}</span>
@@ -255,14 +269,27 @@ const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
                 <span class="tag">{c.era}</span>
                 <h3>{c.title}</h3>
                 <div class="method-body">
-                  {c.body.split('\n').map((line) =>
-                    line.startsWith('•') ? (
-                      <ul class="method-points"><li>{line.replace(/^•\s*/, '')}</li></ul>
-                    ) : line.trim() ? (
-                      <p>{line}</p>
-                    ) : null
+                  {c.paras.map((p) => (
+                    <p>{p}</p>
+                  ))}
+                  <ul class="method-points">
+                    {c.points.slice(0, 3).map((pt) => (
+                      <li>{pt}</li>
+                    ))}
+                  </ul>
+                  {c.points.length > 3 && (
+                    <ul class="method-points more-points" hidden>
+                      {c.points.slice(3).map((pt) => (
+                        <li>{pt}</li>
+                      ))}
+                    </ul>
                   )}
                 </div>
+                {c.points.length > 3 && (
+                  <button class="expand-btn" type="button" aria-expanded="false">
+                    展开全文 ▾
+                  </button>
+                )}
                 <div class="takeaway">{c.takeaway}</div>
               </article>
             )
@@ -357,3 +384,17 @@ const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.expand-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.method-card');
+      const more = card?.querySelector<HTMLElement>('.more-points');
+      if (!more) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      more.hidden = expanded;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? '展开全文 ▾' : '收起 ▴';
+    });
+  });
+</script>
