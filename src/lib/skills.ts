@@ -29,7 +29,7 @@ const CURATED: Record<
   'poetry-resonance': {
     displayName: '诗遇 · poetry-resonance',
     description:
-      '解决「学了诗却用不上」的问题：把唐诗宋词和真实生活场景连起来——朋友圈 / 小红书诗词文案、诗句拆解、节气日签、遗忘曲线背诗。首发 GitHub + ClawHub，上线首周即获几十次下载。',
+      '解决「学了诗却用不上」的问题：把唐诗宋词和真实生活场景连起来——朋友圈 / 小红书诗词文案、诗句拆解、节气日签、遗忘曲线背诗。',
   },
   'md-out-of-chat': {
     displayName: 'md-out-of-chat',
@@ -40,7 +40,6 @@ const CURATED: Record<
     displayName: 'text-to-comic',
     description:
       '解决「文字没有画面感」的问题：把口述文字变成漫画 / 绘本 / 信息图——自动判断内容类型、匹配 11 种风格，还管主角一致性、分镜与合成。日记、游记都能画。',
-    caseUrl: 'https://www.xiaohongshu.com/discovery/item/6a6ff035000000003300f3c3',
     install: 'openclaw skills install @bonniegeng-max/text-to-comic',
   },
   'emoji-sticker-cn': {
