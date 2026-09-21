@@ -62,6 +62,21 @@ const CURATED: Record<
     description:
       '解决「看展走马观花、看完就忘」的问题：行前核验票价与开放时间、生成重点展品策展卡；行中极简核对清单；行后文物打卡印章 + 可打印电子手帐。展品史实双来源交叉核验，平时积累、下次看展直接复用。',
   },
+  'future-journal': {
+    displayName: '未来日记 · future-journal',
+    description:
+      '解决「日记写着写着变成流水账」的问题：每天三分钟，先描一句引导句，再用过去时写下希望发生的事——49 天一轮的暖纸手账，单文件离线可用，可选端到端加密跨设备同步。',
+  },
+  'concept-radar-skill': {
+    displayName: 'concept-radar-skill',
+    description:
+      '解决「追概念追成 FOMO」的问题：用证据支撑做概念发现——反 FOMO 过滤、说人话简报、范式对比卡，每个结论都带来源引用，帮你在追不追之间做判断。',
+  },
+  'stoic-coach': {
+    displayName: 'stoic-coach',
+    description:
+      '解决「被焦虑、反刍、自我怀疑困住」的问题：一分钟斯多葛控制圈自检，分清哪些是自己能控制的；晨间预演、晚间复盘与情境练习，慢慢积累出属于自己的困境地图。',
+  },
 };
 
 // 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）的手写兜底文案。
@@ -82,7 +97,8 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
 
 // ClawHub 全量 slug 清单。ClawHub 没有 publisher 级公开列表 API，slug 需手工登记，
 // 新发布 skill 后要来这里补一行（对照 clawhub.ai/<username> 主页的 Skills 数）。
-// 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）。
+// 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）；
+// 2026-09-21 新增 future-journal（第 20 个）。
 const CLAWHUB_SLUGS: string[] = [
   'beauty-offer-auditor',
   'poetry-resonance',
@@ -103,6 +119,7 @@ const CLAWHUB_SLUGS: string[] = [
   'priority-coach',
   'video-digest',
   'xiaohongshu-prohibited-words',
+  'future-journal',
 ];
 
 // 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库，
