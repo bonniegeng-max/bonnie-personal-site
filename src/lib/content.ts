@@ -82,28 +82,23 @@ export const TIMELINE: TimelineItem[] = [
   },
 ];
 
-// 「正在学」条目（learn in public：过程也可见，想到就补一条）
+// 「正在做」条目（learn in public：过程也可见，想到就补一条）
 export interface LearningItem {
-  what: string; // 在学什么
-  why: string; // 为什么学 / 想解决什么
+  what: string; // 在做什么
+  why: string; // 为什么做 / 想解决什么
   status: string; // 进度或当前状态
 }
 
 export const LEARNING: LearningItem[] = [
   {
-    what: 'AI 编程体系课（直播进行中）',
-    why: 'OpenClaw 建站获客 → Codex 做 CRM → Claude Code 搭企业级多 Agent——把「用 AI 做产品」的全链路亲手走一遍',
-    status: '当前阶段：Claude Code 企业级项目 + AI SaaS 产品实战',
+    what: 'RAG 工程实践 · 高级工程师备考项目',
+    why: '年初中级到手，今年的考证小目标轮到高级。与其背理论，不如把考点做成一个真能跑的系统：给高知识密度文档做「检索 + 整合」的辅助问答——法律、医疗这类行业天然适用，个人知识库也一样，收藏的东西终于能拿出来对话了',
+    status: '9/20 开工 · 基础期：文档处理链路已跑通（5 份文档 → 38 片段），节前交初版 Demo',
   },
   {
-    what: 'AI 算法系统课（AIE 59 期）',
-    why: '从 KNN、CNN 到 Transformer、RLHF——补齐机器侧的语言，「人↔机翻译」才两边都懂',
-    status: '直播进行中 · 已过机器学习与深度学习，进入视觉与 NLP',
-  },
-  {
-    what: '部署与发布链路',
-    why: 'Docker、域名、上线——本站就是练习场，课里也在讲 ECS 与云端部署闭环',
-    status: '边做边学',
+    what: '按三阶段计划推进中',
+    why: '理论懂了、实践没结合是老毛病，这次用「边学边做」治：基础期搭通 Demo → 强化期补优化版和指标 → 冲刺期出数据、录屏、定稿',
+    status: '10/17 客观题 · 10/21 全套提交',
   },
 ];
 
