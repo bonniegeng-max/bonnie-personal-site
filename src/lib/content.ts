@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-09-22',
+    tag: '公众号 · RAG 拆解',
+    title: '我以为我会用 RAG，直到把原理问到底',
+    desc: '「RAG = 外挂知识库」这句没错，但漏了最关键一环：检索到的不是答案，是原料。往下追问了六层——切块为什么要有 overlap、文字怎么变成向量、768 维在刻画什么、temperature 只改措辞不改检索——会用和真懂之间，差的就是这些「为什么」。',
+    url: 'https://mp.weixin.qq.com/s/VlK3DCJWZsFOu3h36kDeug',
+  },
+  {
     date: '2026-09-15',
     tag: '公众号 · AI 伴读',
     title: '我跟 AI 聊了一下午裸辞，它一句没劝我',
