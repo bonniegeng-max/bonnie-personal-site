@@ -173,8 +173,8 @@ export const INTERESTS: InterestItem[] = [
   },
   {
     name: '像素冒险主页',
-    desc: '跟着老师做的 RPG 打卡主页——把日常任务接成冒险，完成 +20 EXP，攒满 100 升级',
-    url: 'https://workbuddy.link/p/4KfGsZ4mEo8vxNTi2bw8Py',
+    desc: '把日常任务做成了会升级的像素冒险——完成 +20 EXP，攒满 100 升级，进度云端同步',
+    url: 'https://fb940db0cc59493aab8c84bcc150fd23.app.workbuddy.link',
   },
 ];
 
