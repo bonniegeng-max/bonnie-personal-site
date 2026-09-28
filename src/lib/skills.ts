@@ -77,6 +77,56 @@ const CURATED: Record<
     description:
       '解决「被焦虑、反刍、自我怀疑困住」的问题：一分钟斯多葛控制圈自检，分清哪些是自己能控制的；晨间预演、晚间复盘与情境练习，慢慢积累出属于自己的困境地图。',
   },
+  'concept-radar': {
+    displayName: 'concept-radar',
+    description:
+      '解决「追概念追成 FOMO」的问题：用证据支撑做概念发现——反 FOMO 过滤、说人话简报、范式对比卡，每个结论都带来源引用，帮你在追不追之间做判断。',
+  },
+  'xiaohongshu-preflight-check': {
+    displayName: '小红书发布前检测 · xiaohongshu-preflight-check',
+    description:
+      '解决「发笔记前不知道会不会被限流」的问题：违禁词·敏感词·限流词检测、标题与篇幅规范、AI 声明与强制标注、导流风险四组自查——纯本地零依赖，一条命令跑完，退出码直接卡住发布流程。',
+  },
+  'text-to-infographic': {
+    displayName: 'text-to-infographic',
+    description:
+      '解决「复杂信息说不清」的问题：把工作流、框架、分析笔记一键转成可嵌入飞书文档的单页信息图——输出结构化 plan，渲染自包含 HTML，也可导出 PNG/SVG。',
+  },
+  'skill-publish-readiness': {
+    displayName: 'ClawHub Skill Launch Review',
+    description:
+      '解决「发布前心里没底」的问题：上线终检清单——文件完整性、版本一致性、环境声明、安全风险、同质化，逐项过完再发。',
+  },
+  'skill-positioning-audit': {
+    displayName: 'skill-positioning-audit',
+    description:
+      '解决「skill 写好了却没人装」的问题：审计标题、摘要、目标用户与差异化定位，基于证据产出一份可执行的商店页文案 Brief。',
+  },
+  'skill-summary-rewriter': {
+    displayName: 'skill-summary-rewriter',
+    description:
+      '解决「摘要像模板、说不清价值」的问题：把模糊冗长的 skill 摘要改写得更短、更清楚、更容易被安装。',
+  },
+  'release-proof-builder': {
+    displayName: 'Release Proof Builder',
+    description:
+      '解决「推送成功被当成上架成功」的问题：发布后核验 GitHub、Actions、registry、公开元数据与安装结果，产出可验证的上线证据。',
+  },
+  'skill-portfolio-growth-audit': {
+    displayName: 'Skill Portfolio Growth Audit',
+    description:
+      '解决「下一个 skill 该做什么」的问题：用 registry 实时数据审计整个 skill 组合，决定哪些该改进、合并、停止或新建。',
+  },
+  'beauty-offer-auditor': {
+    displayName: '美妆到手价审计 · Beauty Offer Auditor',
+    description:
+      '解决「大促比价比到头晕」的问题：审计多个美妆优惠的现金到手价、赠品净值与拆套方案，逐项标注证据等级，算出真正划算的那单。',
+  },
+  'github-actions-clawhub-doctor': {
+    displayName: 'GitHub Actions ClawHub Doctor',
+    description:
+      '解决「Actions 发布 ClawHub 总是失败」的问题：检查 workflow 引用、owner、token、slug、pending-publication 与目录发现，定位到具体失败环节。',
+  },
 };
 
 // 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）的手写兜底文案。
@@ -98,7 +148,8 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
 // ClawHub 全量 slug 清单。ClawHub 没有 publisher 级公开列表 API，slug 需手工登记，
 // 新发布 skill 后要来这里补一行（对照 clawhub.ai/<username> 主页的 Skills 数）。
 // 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）；
-// 2026-09-21 新增 future-journal（第 20 个）。
+// 2026-09-21 新增 future-journal（第 20 个）；
+// 2026-09-28 巡检翻全量列表核对后新增 concept-radar、xiaohongshu-preflight-check（第 22 个）。
 const CLAWHUB_SLUGS: string[] = [
   'beauty-offer-auditor',
   'poetry-resonance',
@@ -120,7 +171,15 @@ const CLAWHUB_SLUGS: string[] = [
   'video-digest',
   'xiaohongshu-prohibited-words',
   'future-journal',
+  'concept-radar',
+  'xiaohongshu-preflight-check',
 ];
+
+// GitHub 仓库名与 ClawHub slug 不一致时的映射（例：仓库叫 concept-radar-skill，
+// ClawHub 上的 slug 是 concept-radar）。下载量匹配、install 命令、去重都按此对齐。
+const REPO_TO_CLAWHUB_SLUG: Record<string, string> = {
+  'concept-radar-skill': 'concept-radar',
+};
 
 // 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库，
 // 以及暂不展示的仓库（price-gap-map / token-optimizer，Bonnie 2026-09-12 定：描述补齐后再上）
@@ -153,7 +212,9 @@ async function getGitHubSkills(username: string): Promise<Skill[]> {
           description: cur?.description ?? x.description ?? 'AI 小工具 / skill。',
           url: x.html_url,
           source: 'github' as const,
-          install: cur?.install ?? `openclaw skills install @${username}/${x.name}`,
+          install:
+            cur?.install ??
+            `openclaw skills install @${username}/${REPO_TO_CLAWHUB_SLUG[x.name] ?? x.name}`,
           caseUrl: cur?.caseUrl,
           updated: (x.pushed_at || '').slice(0, 10),
           stars: x.stargazers_count || 0,
@@ -250,16 +311,18 @@ function sortSkills(list: Skill[]): Skill[] {
   });
 }
 
-// 合并 GitHub + ClawHub；同名 skill 以 GitHub 为准去重，ClawHub 下载量补给 GitHub 条目
+// 合并 GitHub + ClawHub；同名 skill 以 GitHub 为准去重，ClawHub 下载量补给 GitHub 条目。
+// 仓库名与 ClawHub slug 不一致的（REPO_TO_CLAWHUB_SLUG），按映射后的 slug 匹配与去重。
 export async function getSkills(username = USERNAME): Promise<Skill[]> {
   const [{ skills: chAll }, ghRaw] = await Promise.all([
     getClawHubCatalog(username),
     getGitHubSkills(username),
   ]);
   const gh = ghRaw;
-  const ghNames = new Set(gh.map((s) => s.name.toLowerCase()));
+  const clawhubSlugOf = (name: string) => REPO_TO_CLAWHUB_SLUG[name] ?? name;
+  const ghNames = new Set(gh.map((s) => clawhubSlugOf(s.name).toLowerCase()));
   for (const s of gh) {
-    const match = chAll.find((c) => c.name.toLowerCase() === s.name.toLowerCase());
+    const match = chAll.find((c) => c.name.toLowerCase() === clawhubSlugOf(s.name).toLowerCase());
     if (match?.downloads) s.downloads = match.downloads;
     // GitHub 仓库没写描述时，借用 ClawHub 的摘要（避免站点出现占位文案）
     const placeholder = 'AI 小工具 / skill。';
@@ -273,14 +336,14 @@ export async function getSkills(username = USERNAME): Promise<Skill[]> {
   return sortSkills(merged);
 }
 
-// 站点统计：skill 数、累计下载（ClawHub 全量 18 项之和）、数据截至日期
+// 站点统计：skill 数、累计下载（ClawHub 全量 slug 之和）、数据截至日期
 export async function getStats(username = USERNAME): Promise<SiteStats> {
   const [{ skills, totalDownloads }, gh] = await Promise.all([
     getClawHubCatalog(username),
     getGitHubSkills(username),
   ]);
   const mergedCount = new Set([
-    ...gh.map((s) => s.name.toLowerCase()),
+    ...gh.map((s) => (REPO_TO_CLAWHUB_SLUG[s.name] ?? s.name).toLowerCase()),
     ...skills.map((s) => s.name.toLowerCase()),
   ]).size;
   return {
