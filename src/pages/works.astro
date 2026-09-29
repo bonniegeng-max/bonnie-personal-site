@@ -1,11 +1,38 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getSkills, getStats } from '../lib/skills';
+import { getSkills, getStats, LINES, skillKey } from '../lib/skills';
 import { ARTICLES, INTERESTS } from '../lib/content';
 
 const skills = await getSkills();
 const stats = await getStats();
 const sortedArticles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+
+// 按主线分组（2026-09-29）：组内默认按下载量倒序；
+// order === 'chain' 的那条线（skill 工程线）有明确串联关系，按 LINES 里写的顺序展示。
+const byKey = new Map(skills.map((s) => [skillKey(s.name), s]));
+const lines = LINES.map((line) => {
+  const items = line.keys
+    .map((k) => byKey.get(k))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s))
+    .sort((a, b) =>
+      line.order === 'chain'
+        ? line.keys.indexOf(skillKey(a.name)) - line.keys.indexOf(skillKey(b.name))
+        : (b.downloads || 0) - (a.downloads || 0)
+    );
+  return { ...line, items };
+}).filter((l) => l.items.length > 0);
+
+// 兜底：新发布但还没登记到主线的 skill 也不能从页面上消失
+const groupedKeys = new Set(LINES.flatMap((l) => l.keys));
+const ungrouped = skills.filter((s) => !groupedKeys.has(skillKey(s.name)));
+
+// 渲染时统一走 groups，避免卡片 markup 重复两份
+const groups = [
+  ...lines,
+  ...(ungrouped.length
+    ? [{ id: 'more', name: '更多', lede: '', order: 'downloads' as const, items: ungrouped }]
+    : []),
+];
 ---
 
 <BaseLayout
@@ -21,51 +48,56 @@ const sortedArticles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date)
       <p class="lede">
         {stats.skillCount}
         个开源 skill · 累计下载 {stats.totalDownloads}
-        次 · 每次构建自动同步 GitHub 与 ClawHub，按下载数排序。
+        次 · 每次构建自动同步 GitHub 与 ClawHub。按三条主线分组，组内按下载量排序。
       </p>
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <div class="sec-head">
-        <h2 class="display">Skills</h2>
-        <div class="note">解决什么问题 · 安装命令 · 案例链接</div>
-      </div>
-      <div class="works-grid">
-        {
-          skills.map((s, i) => (
-            <article class="feature-card reveal">
-              <div class="rank display">{String(i + 1).padStart(2, '0')}</div>
-              <h3>{s.displayName}</h3>
-              <p class="problem">{s.description}</p>
-              <div class="install">
-                <span class="install-label">安装</span>
-                <code>{s.install}</code>
-              </div>
-              <div class="feature-meta">
-                <span class="dl">
-                  {s.downloads ? `↓ ${s.downloads}` : '新发布'}
-                  {s.stars > 0 && ` · ★ ${s.stars}`}
-                  {s.updated !== '—' && ` · ${s.updated}`}
-                </span>
-                <span class="links">
-                  <a href={s.url} target="_blank" rel="noopener">
-                    {s.source === 'github' ? 'GitHub ↗' : 'ClawHub ↗'}
-                  </a>
-                  {s.caseUrl && (
-                    <a href={s.caseUrl} target="_blank" rel="noopener">
-                      案例 ↗
+  {
+    groups.map((group) => (
+      <section id={`line-${group.id}`}>
+        <div class="wrap">
+          <div class="sec-head">
+            <h2 class="display">{group.name}</h2>
+            <div class="note">
+              {group.items.length} 个 · {group.order === 'chain' ? '按使用顺序' : '按下载量排序'}
+            </div>
+          </div>
+          {group.lede && <p class="sec-lede">{group.lede}</p>}
+          <div class="works-grid">
+            {group.items.map((s, i) => (
+              <article class="feature-card reveal">
+                <div class="rank display">{String(i + 1).padStart(2, '0')}</div>
+                <h3>{s.displayName}</h3>
+                <p class="problem">{s.description}</p>
+                <div class="install">
+                  <span class="install-label">安装</span>
+                  <code>{s.install}</code>
+                </div>
+                <div class="feature-meta">
+                  <span class="dl">
+                    {s.downloads ? `↓ ${s.downloads}` : '新发布'}
+                    {s.stars > 0 && ` · ★ ${s.stars}`}
+                    {s.updated !== '—' && ` · ${s.updated}`}
+                  </span>
+                  <span class="links">
+                    <a href={s.url} target="_blank" rel="noopener">
+                      {s.source === 'github' ? 'GitHub ↗' : 'ClawHub ↗'}
                     </a>
-                  )}
-                </span>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+                    {s.caseUrl && (
+                      <a href={s.caseUrl} target="_blank" rel="noopener">
+                        案例 ↗
+                      </a>
+                    )}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
 
   <section>
     <div class="wrap">
