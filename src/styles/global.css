@@ -771,7 +771,7 @@ section {
 }
 .learning-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 16px;
 }
 .learning-item {
@@ -892,74 +892,70 @@ section {
   margin-top: 6px;
 }
 
-/* ---------- 证照收藏（小卡） ---------- */
-.coll-grid {
+/* ---------- 顺手考的（证书区尾部轻量条） ---------- */
+.cred-extra-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 14px;
 }
-.coll-card {
+.cred-extra {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+  padding: 16px 20px;
+  transition: transform 0.22s, border-color 0.22s;
 }
-.coll-card:hover {
+.cred-extra:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 12px 30px -20px rgba(28, 27, 25, 0.4);
 }
-.coll-img {
-  border-bottom: 1px solid var(--line);
+.cred-extra-img {
+  flex: none;
+  width: 132px;
   background: #f2efe8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 8px;
 }
-.coll-img img {
+.cred-extra-img img {
   width: 100%;
   height: auto;
-  max-height: 200px;
+  max-height: 104px;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 6px;
   display: block;
 }
-.coll-body {
-  padding: 18px 20px 20px;
+.cred-extra-body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
-.coll-head {
+.cred-extra-head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
   gap: 10px;
+  flex-wrap: wrap;
 }
-.coll-head h3 {
-  font-size: 17px;
+.cred-extra-head h3 {
+  font-size: 16px;
   line-height: 1.4;
 }
-.coll-date {
-  font-size: 12px;
-  color: var(--muted);
-  letter-spacing: 0.04em;
+.cred-extra-body .cred-issuer {
+  font-size: 12.5px;
+}
+.cred-extra-body .cred-line {
   flex: none;
+  margin-top: 2px;
 }
-.coll-issuer {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-.coll-line {
-  font-size: 14px;
-  color: var(--ink);
-  line-height: 1.6;
-  margin: 2px 0 0;
+@media (max-width: 640px) {
+  .cred-extra {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cred-extra-img {
+    width: 100%;
+  }
 }
 
 /* ---------- 渠道矩阵（在这里找到我） ---------- */
@@ -1113,8 +1109,7 @@ footer .data-date {
   .top3,
   .works-grid,
   .method-grid,
-  .cred-grid,
-  .coll-grid {
+  .cred-grid {
     grid-template-columns: 1fr;
   }
   .learning-grid,

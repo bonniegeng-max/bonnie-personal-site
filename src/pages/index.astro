@@ -7,7 +7,12 @@ const skills = await getSkills();
 const stats = await getStats();
 const top3 = skills.slice(0, 3);
 const rest = skills.slice(3);
-const articles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+const sortedArticles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+// 首页只留精选两篇（旗舰优先 + 最新一篇），全部文章在 /works#articles
+const flagship = sortedArticles.find((a) => a.featured);
+const homeArticles = flagship
+  ? [flagship, ...sortedArticles.filter((a) => a !== flagship).slice(0, 1)]
+  : sortedArticles.slice(0, 2);
 
 // 方法卡渲染预处理：拆导语段与要点列表（普通卡要点 >3 条时折叠，展开看全文）
 const methodCases = METHOD_CASES.map((c) => {
@@ -202,6 +207,27 @@ const methodCases = METHOD_CASES.map((c) => {
           ))
         }
       </div>
+
+      <div class="rest-head">顺手考的 · 没派上用场，但考得开心</div>
+      <div class="cred-extra-list">
+        {
+          COLLECTION.map((c) => (
+            <article class="cred-extra reveal">
+              <div class="cred-extra-img">
+                <img src={c.img} alt={`${c.name} 证书`} loading="lazy" />
+              </div>
+              <div class="cred-extra-body">
+                <div class="cred-extra-head">
+                  <h3>{c.name}</h3>
+                  <span class="cred-date">{c.date}</span>
+                </div>
+                <p class="cred-issuer">{c.issuer}</p>
+                <p class="cred-line">{c.story}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -297,10 +323,10 @@ const methodCases = METHOD_CASES.map((c) => {
         }
       </div>
 
-      <div class="rest-head">公众号文章</div>
+      <div class="rest-head">公众号文章 · 精选两篇</div>
       <div class="cards articles">
         {
-          articles.map((a) => (
+          homeArticles.map((a) => (
             <article class="card reveal">
               <span class="tag">
                 {a.tag}
@@ -318,41 +344,13 @@ const methodCases = METHOD_CASES.map((c) => {
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <!-- ⑤ 证照收藏：和工作无关、纯因好奇去考的 -->
-  <section id="collection">
-    <div class="wrap">
-      <p class="sec-lede display">— 这些证帮不上简历，但帮我记住了好奇心的来路。</p>
-      <div class="sec-head">
-        <h2 class="display">证照收藏</h2>
-        <div class="note">一些没派上用场、但考得很开心的证</div>
-      </div>
-
-      <div class="coll-grid">
-        {
-          COLLECTION.map((c) => (
-            <article class="coll-card reveal">
-              <div class="coll-img">
-                <img src={c.img} alt={`${c.name} 证书`} loading="lazy" />
-              </div>
-              <div class="coll-body">
-                <div class="coll-head">
-                  <h3>{c.name}</h3>
-                  <span class="coll-date">{c.date}</span>
-                </div>
-                <p class="coll-issuer">{c.issuer}</p>
-                <p class="coll-line">{c.story}</p>
-              </div>
-            </article>
-          ))
-        }
+      <div class="all-works">
+        <a class="btn ghost" href="/works#articles">看全部 {sortedArticles.length} 篇 →</a>
       </div>
     </div>
   </section>
 
-  <!-- ⑥ 在这里找到我（渠道矩阵） -->
+  <!-- ⑤ 在这里找到我（渠道矩阵） -->
   <section id="contact" class="contact">
     <div class="wrap">
       <p class="sec-lede display">— 我散在各处的输出，这里是一个集合入口。</p>
