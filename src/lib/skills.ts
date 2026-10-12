@@ -141,6 +141,15 @@ const CURATED: Record<
   'openclaw-publisher': {
     displayName: 'ClawHub 发布工具链 · openclaw-publisher',
   },
+  // GitHub-only 项目（不在 ClawHub 发布）：install 写空字符串 → 卡片不显示安装命令。
+  // token-optimizer 的 ClawHub slug 已被 smartpeopleconnected / lilozhao 占用（AMBIGUOUS_SKILL_SLUG），
+  // 推导出的 `openclaw skills install @bonniegeng-max/token-optimizer` 指向不存在的包，2026-10-12 定为 GitHub-only 展示。
+  'token-optimizer': {
+    displayName: '微信读书看板 · token-optimizer',
+    description:
+      '解决「想看微信读书数据、官方却没有像样统计页」的问题：Chrome 侧边栏插件——填一次 API Key，本地同步只读阅读数据，生成今日 / 近 7 天 / 近 30 天 / 年度阅读看板与书架分布。数据只存本地，不上传。（仓库名为历史遗留）',
+    install: '',
+  },
 };
 
 // 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）的手写兜底文案。
@@ -242,6 +251,7 @@ export const LINES: SkillLine[] = [
     keys: [
       'poetry-resonance',
       'weread-socrates',
+      'token-optimizer', // 微信读书阅读数据看板（输入侧，GitHub-only）
       'stoic-coach',
       'priority-coach',
       'concept-radar',
@@ -258,14 +268,14 @@ export const LINES: SkillLine[] = [
 ];
 
 // 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库，
-// 以及暂不展示的仓库（price-gap-map / token-optimizer，Bonnie 2026-09-12 定：描述补齐后再上）
+// 以及暂不展示的仓库（price-gap-map，描述补齐后再上）。
+// token-optimizer 已于 2026-10-12 解除隐藏（GitHub-only 展示，见 CURATED 注释）。
 function isExcludedRepo(name: string, username: string): boolean {
   return (
     name === username ||
     name === 'bonnie-personal-site' ||
     name.endsWith('.github.io') ||
-    name === 'price-gap-map' ||
-    name === 'token-optimizer'
+    name === 'price-gap-map'
   );
 }
 
