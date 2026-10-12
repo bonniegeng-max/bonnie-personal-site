@@ -8,11 +8,9 @@ const stats = await getStats();
 const top3 = skills.slice(0, 3);
 const rest = skills.slice(3);
 const sortedArticles = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
-// 首页只留精选两篇（旗舰优先 + 最新一篇），全部文章在 /works#articles
-const flagship = sortedArticles.find((a) => a.featured);
-const homeArticles = flagship
-  ? [flagship, ...sortedArticles.filter((a) => a !== flagship).slice(0, 1)]
-  : sortedArticles.slice(0, 2);
+// 首页只留最近两篇（纯按日期倒序），全部文章在 /works#articles
+// 注：曾用「旗舰 + 最新」的组合，2026-10-12 按 Bonnie 定改为纯时间序（最新两篇必须都在首页）
+const homeArticles = sortedArticles.slice(0, 2);
 
 // 方法卡渲染预处理：拆导语段与要点列表（普通卡要点 >3 条时折叠，展开看全文）
 const methodCases = METHOD_CASES.map((c) => {
@@ -323,7 +321,7 @@ const methodCases = METHOD_CASES.map((c) => {
         }
       </div>
 
-      <div class="rest-head">公众号文章 · 精选两篇</div>
+      <div class="rest-head">公众号文章 · 最新两篇</div>
       <div class="cards articles">
         {
           homeArticles.map((a) => (

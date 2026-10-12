@@ -7,10 +7,17 @@ export interface Article {
   title: string;
   desc: string;
   url: string;
-  featured?: boolean; // 旗舰：合作方信任的关键证据，置顶
+  featured?: boolean; // 旗舰：合作方信任的关键证据，/works 文章区打「旗舰」角标
 }
 
 export const ARTICLES: Article[] = [
+  {
+    date: '2026-09-29',
+    tag: '公众号 · RAG 备考',
+    title: '我用 AI 备考高级工程师，把向量检索画明白了',
+    desc: '备考工程实践做的工业知识问答系统，翻车了一次：问 M16 质检标准，它说无法回答。查下来反而高兴——防幻觉约束生效了。顺带把 HNSW 分层检索、Prompt 拼装画成了图，一看就懂。',
+    url: 'https://mp.weixin.qq.com/s/243fiK6niZjlcYoo51Ex_A',
+  },
   {
     date: '2026-09-22',
     tag: '公众号 · RAG 拆解',
