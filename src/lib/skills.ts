@@ -140,6 +140,9 @@ const CURATED: Record<
   },
   'openclaw-publisher': {
     displayName: 'ClawHub 发布工具链 · openclaw-publisher',
+    // GitHub-only 项目（ClawHub 上无此包，API 404，2026-10-19 巡检确认）：
+    // install 写空字符串 → 卡片不显示安装命令（同 token-optimizer 先例）。
+    install: '',
   },
   // GitHub-only 项目（不在 ClawHub 发布）：install 写空字符串 → 卡片不显示安装命令。
   // token-optimizer 的 ClawHub slug 已被 smartpeopleconnected / lilozhao 占用（AMBIGUOUS_SKILL_SLUG），
