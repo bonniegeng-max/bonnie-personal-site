@@ -103,18 +103,10 @@ export interface LearningItem {
   status: string; // 进度或当前状态
 }
 
-export const LEARNING: LearningItem[] = [
-  {
-    what: 'RAG 工程实践 · 高级工程师备考项目',
-    why: '年初中级到手，今年的考证小目标轮到高级。与其背理论，不如把考点做成一个真能跑的系统：给高知识密度文档做「检索 + 整合」的辅助问答——法律、医疗这类行业天然适用，个人知识库也一样，收藏的东西终于能拿出来对话了',
-    status: '交付物齐：文档 + 30 页 PPT + 照念版逐字稿，已提交；优化版（BM25+向量+RRF+Rerank）双版对比数据出炉——小语料下没考赢，术语题更准',
-  },
-  {
-    what: '按三阶段计划推进中',
-    why: '理论懂了、实践没结合是老毛病，这次用「边学边做」治：基础期搭通 Demo → 强化期补优化版和指标 → 冲刺期出数据、录屏、定稿',
-    status: '已完结 · 客观题 20 分到手，工程实践材料全套交付',
-  },
-];
+// 2026-10-21：RAG 备考项目已完结毕业（原两张卡：项目卡 + 三阶段进度卡），
+// 完结的东西不该占「正在做」——空着不渲染（首页 LEARNING.length === 0 时整块收起），
+// 等下一个真在学的项目填回来。原文案见 git 历史 3879428。
+export const LEARNING: LearningItem[] = [];
 
 // 「在这里找到我」渠道矩阵：每卡一句"这里发什么"
 export interface Channel {
@@ -164,6 +156,11 @@ export interface InterestItem {
 }
 
 export const INTERESTS: InterestItem[] = [
+  {
+    name: 'RAG 工程实践',
+    desc: '把高级工程师的考点做成了能跑的系统——高知识密度文档的「检索 + 整合」问答，BM25 / 向量 / RRF / Rerank 四件套齐活',
+    note: '2026-10 完结 · 客观题 20 分到手，材料全套交付',
+  },
   {
     name: '读书',
     desc: '读得杂：绘本漫画、杂文散文小说，不装专业',

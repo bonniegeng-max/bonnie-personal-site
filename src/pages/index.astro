@@ -85,23 +85,25 @@ const methodCases = METHOD_CASES.map((c) => {
         }
       </ul>
 
-      <div class="learning">
-        <div class="learning-head">
-          <h3 class="display">正在做</h3>
-          <span class="note">learn in public · 边学边做</span>
-        </div>
-        <div class="learning-grid">
-          {
-            LEARNING.map((l) => (
+      {
+        LEARNING.length > 0 && (
+        <div class="learning">
+          <div class="learning-head">
+            <h3 class="display">正在做</h3>
+            <span class="note">learn in public · 边学边做</span>
+          </div>
+          <div class="learning-grid">
+            {LEARNING.map((l) => (
               <div class="learning-item reveal">
                 <div class="learning-what">{l.what}</div>
                 <p>{l.why}</p>
                 <span class="learning-status">{l.status}</span>
               </div>
-            ))
-          }
+            ))}
+          </div>
         </div>
-      </div>
+        )
+      }
     </div>
   </section>
 
