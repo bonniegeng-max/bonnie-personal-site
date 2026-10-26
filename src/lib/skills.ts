@@ -153,6 +153,24 @@ const CURATED: Record<
       '解决「想看微信读书数据、官方却没有像样统计页」的问题：Chrome 侧边栏插件——填一次 API Key，本地同步只读阅读数据，生成今日 / 近 7 天 / 近 30 天 / 年度阅读看板与书架分布。数据只存本地，不上传。（仓库名为历史遗留）',
     install: '',
   },
+  // 以下 3 个为 2026-10-24 新推仓库，2026-10-26 巡检登记。
+  'style-card': {
+    displayName: '图生风格卡 · style-card',
+    description:
+      '解决「看中一个画风却复现不出来」的问题：从参考图反推结构化风格卡并入库，再用风格卡为任意文本生成同风格图片——风格变成可积累、可复用的资产。',
+  },
+  'kepu-quickcut': {
+    displayName: '科普快剪 · kepu-quickcut',
+    description:
+      '解决「知识点讲得清却变不成视频」的问题：知识点 → 叙事模板 → 1080×1920 竖版科普短视频 MP4，确定性渲染，字幕位置永不错。',
+    install: '',
+  },
+  'focuscat-expo': {
+    displayName: 'FocusCat 专注力训练 · focuscat-expo',
+    description:
+      '解决「想练专注力却没有顺手的工具」的问题：Expo / React Native 开源的专注力训练 App 骨架，开箱即改、可自行部署。',
+    install: '',
+  },
 };
 
 // 纯 ClawHub-only 的 skill（GitHub 上没有同名仓库）的手写兜底文案。
@@ -175,7 +193,8 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
 // 新发布 skill 后要来这里补一行（对照 clawhub.ai/<username> 主页的 Skills 数）。
 // 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）；
 // 2026-09-21 新增 future-journal（第 20 个）；
-// 2026-09-28 巡检翻全量列表核对后新增 concept-radar、xiaohongshu-preflight-check（第 22 个）。
+// 2026-09-28 巡检翻全量列表核对后新增 concept-radar、xiaohongshu-preflight-check（第 22 个）；
+// 2026-10-26 巡检新增 style-card（第 23 个，10-24 发布，owner 已核实）。
 const CLAWHUB_SLUGS: string[] = [
   'beauty-offer-auditor',
   'poetry-resonance',
@@ -199,6 +218,7 @@ const CLAWHUB_SLUGS: string[] = [
   'future-journal',
   'concept-radar',
   'xiaohongshu-preflight-check',
+  'style-card',
 ];
 
 // GitHub 仓库名与 ClawHub slug 不一致时的映射（例：仓库叫 concept-radar-skill，
