@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-10-25',
+    tag: '公众号 · AI 实操',
+    title: '我用AI做了只小猫，它只在乎你差点放弃',
+    desc: '1024程序员节，我用WorkBuddy做了只小猫FocusCat。它不审判你的放弃，只在你差点放弃的那一刻拉你一把。',
+    url: 'https://mp.weixin.qq.com/s/9Nip012YfZLM3SbZ14nMHQ',
+  },
+  {
     date: '2026-09-29',
     tag: '公众号 · RAG 备考',
     title: '我用 AI 备考高级工程师，把向量检索画明白了',
