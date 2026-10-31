@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-10-31',
+    tag: '公众号 · 书评',
+    title: '读完这本书，我终于知道自己为什么迷茫',
+    desc: '读李希贵《下一代学校》——一本讲学校的书，把我纠结了一个多月的裸辞读明白了：不是怂，是从没学过怎么自己选。AI 让答案变便宜，判断力才是稀缺，而判断力是可以补课的。',
+    url: 'https://mp.weixin.qq.com/s/0JHmazTCN5SlmULji3SP5g',
+  },
+  {
     date: '2026-10-25',
     tag: '公众号 · AI 实操',
     title: '我用AI做了只小猫，它只在乎你差点放弃',
@@ -20,28 +27,28 @@ export const ARTICLES: Article[] = [
   },
   {
     date: '2026-09-29',
-    tag: '公众号 · RAG 备考',
+    tag: '公众号 · RAG',
     title: '我用 AI 备考高级工程师，把向量检索画明白了',
     desc: '备考工程实践做的工业知识问答系统，翻车了一次：问 M16 质检标准，它说无法回答。查下来反而高兴——防幻觉约束生效了。顺带把 HNSW 分层检索、Prompt 拼装画成了图，一看就懂。',
     url: 'https://mp.weixin.qq.com/s/243fiK6niZjlcYoo51Ex_A',
   },
   {
     date: '2026-09-22',
-    tag: '公众号 · RAG 拆解',
+    tag: '公众号 · RAG',
     title: '我以为我会用 RAG，直到把原理问到底',
     desc: '「RAG = 外挂知识库」这句没错，但漏了最关键一环：检索到的不是答案，是原料。往下追问了六层——切块为什么要有 overlap、文字怎么变成向量、768 维在刻画什么、temperature 只改措辞不改检索——会用和真懂之间，差的就是这些「为什么」。',
     url: 'https://mp.weixin.qq.com/s/VlK3DCJWZsFOu3h36kDeug',
   },
   {
     date: '2026-09-15',
-    tag: '公众号 · AI 伴读',
+    tag: '公众号 · 书评',
     title: '我跟 AI 聊了一下午裸辞，它一句没劝我',
     desc: '重读曼昆《经济学原理》，把「看剧」和「裸辞」两笔账重新记了一遍：机会成本是「用途」不是「时间」，模糊的那边从没被标过价；AI 抹掉执行层分工，抹不掉判断层——你不是败给意志力，是败给一张写歪了的价目表。',
     url: 'https://mp.weixin.qq.com/s/QPEnr62H5rsM9cgdwvsVQQ',
   },
   {
     date: '2026-09-08',
-    tag: '公众号 · 建站复盘',
+    tag: '公众号 · AI 实操',
     title: '一行代码没写，我 7 天上线了个人网站',
     desc: '从决定建站到 bonnieai.me 上线只用 7 天，一行代码没写。技术坑 AI 都能填平，真正难的是三件 AI 替代不了的事：敢对「能看」的版本说重来，定位靠回头看证据，数据再小也只放真的。',
     url: 'https://mp.weixin.qq.com/s/TqkYAANvLSPMHiVKoHn8zA',
@@ -62,7 +69,7 @@ export const ARTICLES: Article[] = [
   },
   {
     date: '2026-08-04',
-    tag: '公众号 · Context Engineering',
+    tag: '公众号 · AI 实操',
     title: '给 AI 助手做了一次体检，发现体检仪器是坏的',
     desc: '一个非工程师运营，用 378 次模型调用给 AI 助手的上下文文件做消融测试，揪出三个「长得像真结论」的假结论。核心一句：你塞进上下文的东西，模型真的在用吗？',
     url: 'https://mp.weixin.qq.com/s/Trr6g7fA32nSuYXp3Rvi0g',
@@ -160,6 +167,9 @@ export interface InterestItem {
   desc: string;
   note?: string;
   url?: string;
+  /** 次级入口：站内介绍页（url 直连应用本体时，这里给想看详情的人） */
+  detailUrl?: string;
+  detailLabel?: string;
 }
 
 export const INTERESTS: InterestItem[] = [
@@ -186,6 +196,13 @@ export const INTERESTS: InterestItem[] = [
     name: '像素冒险主页',
     desc: '把日常任务做成了会升级的像素冒险——完成 +20 EXP，攒满 100 升级，进度云端同步',
     url: 'https://fb940db0cc59493aab8c84bcc150fd23.app.workbuddy.link',
+  },
+  {
+    name: '拼豆图纸生成器',
+    desc: '上传照片一键生成拼豆图纸——25 套色号库、在线改色删减、导出高清 PNG，图片纯本地处理',
+    url: 'https://bead-pattern-maker-65072.app.workbuddy.host/?sharecode=DMLFS36MYY',
+    detailUrl: '/tools/bead-pattern/',
+    detailLabel: '看介绍',
   },
 ];
 

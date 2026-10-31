@@ -1,0 +1,244 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const TOOL_URL = 'https://bead-pattern-maker-65072.app.workbuddy.host/?sharecode=DMLFS36MYY';
+
+const features = [
+  { t: '25 套色号库', d: 'MARD / Perler / Hama / Artkal / Nabbi / COCO 等，共 3759 个色号，照着下豆就行' },
+  { t: '15–156 格自由定', d: '一键选尺寸或精确输入，格子越大细节越细，越小越好拼' },
+  { t: '限色 + 噪点简化', d: '可选限色省豆，自动去掉孤立杂点、合并碎块，拼起来更省力' },
+  { t: '在线编辑', d: '画笔 / 填充 / 橡皮 / 取色，改色删减随时调' },
+  { t: '导出高清 PNG', d: '自动带网格线和色号用量表，照着下豆' },
+  { t: '纯本地处理', d: '图片在浏览器本地处理，不上传服务器，隐私安全' },
+];
+
+const steps = [
+  { n: '01', t: '上传图片', d: '上传一张 JPG / PNG 照片，越清晰生成的图纸越准' },
+  { n: '02', t: '选尺寸与色号', d: '选 15–156 格尺寸和色号库，可开启限色减少用豆' },
+  { n: '03', t: '编辑并导出', d: '在线改色删减后，导出高清 PNG 图纸，带网格线和色号表' },
+];
+
+const faqs = [
+  { q: '拼豆图纸生成器是免费的吗？', a: '完全免费。图片在本地浏览器处理，不上传服务器，隐私安全。' },
+  { q: '支持哪些拼豆品牌色号？', a: '支持 MARD、Perler、Hama、Artkal、Nabbi、COCO、漫漫等共 25 套色号库，合计 3759 个色号。' },
+  { q: '怎么把照片转成拼豆图纸？', a: '上传照片后自动像素化并匹配最近邻色号，选好尺寸和色号库即可生成，再按需编辑并导出。' },
+  { q: '生成的图纸能照着拼吗？', a: '能。导出的 PNG 自带网格线和色号用量表，每格一个豆、每色标好数量，照着下豆即可。' },
+];
+---
+
+<BaseLayout
+  title="拼豆图纸生成器 · 免费图片转拼豆图纸"
+  description="免费在线拼豆图纸生成器：上传图片一键生成像素拼豆图纸，支持 MARD/Perler/Hama 等 25 套色号库、15-156 格尺寸、限色与噪点简化、在线编辑改色删减，导出高清 PNG。图片纯本地处理，不上传服务器。"
+  path="/tools/bead-pattern"
+>
+  <!-- 结构化数据：WebApplication + HowTo + FAQPage（喂搜索引擎与 AI 搜索） -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://bonnieai.me/tools/bead-pattern/#app",
+        "name": "拼豆图纸生成器",
+        "url": "https://bonnieai.me/tools/bead-pattern/",
+        "description": "免费在线拼豆图纸生成器：上传图片即可生成像素拼豆图纸，支持 25 套色号库、15-156 格尺寸、限色与噪点简化、在线编辑，导出高清 PNG。图片纯本地处理，不上传服务器。",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "zh-CN",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+        "featureList": [
+          "上传图片自动生成拼豆图纸",
+          "25 套拼豆色号库（MARD/Perler/Hama/Artkal 等）",
+          "15-156 格尺寸自定义",
+          "限色与噪点简化",
+          "在线编辑（画笔/填充/橡皮/取色）",
+          "导出高清 PNG（含网格线与色号用量表）",
+          "图片纯本地处理，不上传服务器"
+        ],
+        "author": { "@type": "Person", "name": "Bonnie", "url": "https://bonnieai.me" },
+        "publisher": { "@type": "Organization", "name": "巴扎嘿" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://bonnieai.me/tools/bead-pattern/#howto",
+        "name": "怎么把照片转成拼豆图纸",
+        "description": "三步把任意图片转成可照着拼的拼豆图纸。",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "上传图片", "text": "上传一张 JPG 或 PNG 照片，越清晰生成的图纸越准。" },
+          { "@type": "HowToStep", "position": 2, "name": "选择尺寸与色号", "text": "选择 15-156 格尺寸和拼豆色号库（MARD/Perler/Hama 等），可开启限色减少用豆。" },
+          { "@type": "HowToStep", "position": 3, "name": "编辑并导出", "text": "在线改色、删减后，导出高清 PNG 图纸，带网格线和色号用量表。" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://bonnieai.me/tools/bead-pattern/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "拼豆图纸生成器是免费的吗？",
+            "acceptedAnswer": { "@type": "Answer", "text": "完全免费。图片在本地浏览器处理，不上传服务器，隐私安全。" }
+          },
+          {
+            "@type": "Question",
+            "name": "支持哪些拼豆品牌色号？",
+            "acceptedAnswer": { "@type": "Answer", "text": "支持 MARD、Perler、Hama、Artkal、Nabbi、COCO、漫漫等共 25 套色号库，合计 3759 个色号。" }
+          },
+          {
+            "@type": "Question",
+            "name": "怎么把照片转成拼豆图纸？",
+            "acceptedAnswer": { "@type": "Answer", "text": "上传照片后自动像素化并匹配最近邻色号，选好尺寸和色号库即可生成，再按需编辑并导出。" }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker"><a href="/">← 返回主页</a> · 免费在线工具</p>
+      <h1 class="display">把照片变成<br />照着就能拼的图纸</h1>
+      <p class="lede">
+        拼豆图纸生成器：上传任意图片，一键转成像素拼豆图纸。25 套色号库、15–156 格自由定、在线改色删减，导出高清 PNG 带色号用量表。图片纯本地处理，不上传服务器。
+      </p>
+      <div class="bead-cta">
+        <a class="btn" href={TOOL_URL} target="_blank" rel="noopener">打开工具，开始生成 →</a>
+        <span class="bead-cta-note">免费 · 无需注册 · 手机电脑都能用</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sec-lede display">— 它替你把「画格子」这件事省了。</p>
+      <div class="sec-head">
+        <h2 class="display">能做什么</h2>
+        <div class="note">六个关键能力</div>
+      </div>
+      <div class="bead-grid">
+        {features.map((f) => (
+          <article class="card reveal">
+            <span class="tag">{f.t}</span>
+            <p>{f.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">三步出图纸</h2>
+        <div class="note">从照片到成品图纸</div>
+      </div>
+      <div class="bead-steps">
+        {steps.map((s) => (
+          <div class="bead-step reveal">
+            <div class="bead-step-n display">{s.n}</div>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display">常见问题</h2>
+        <div class="note">你可能想问的</div>
+      </div>
+      <div class="bead-faq">
+        {faqs.map((f) => (
+          <details class="bead-faq-item reveal">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <div class="all-works">
+        <a class="btn" href={TOOL_URL} target="_blank" rel="noopener">免费开始 →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bead-cta {
+    margin-top: 34px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .bead-cta-note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .bead-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .bead-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .bead-step {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .bead-step-n {
+    font-size: 40px;
+    color: var(--accent);
+    opacity: 0.35;
+    margin-bottom: 12px;
+  }
+  .bead-step h3 {
+    font-family: var(--serif);
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+  .bead-step p {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .bead-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bead-faq-item {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .bead-faq-item summary {
+    cursor: pointer;
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .bead-faq-item p {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .bead-grid,
+    .bead-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

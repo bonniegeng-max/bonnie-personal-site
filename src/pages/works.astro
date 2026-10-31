@@ -145,11 +145,18 @@ const groups = [
               {it.note && <p class="interest-note">{it.note}</p>}
               <div class="meta">
                 <span />
-                {it.url && (
-                  <a href={it.url} target="_blank" rel="noopener">
-                    去看看 ↗
-                  </a>
-                )}
+                <span class="meta-links">
+                  {it.url && (
+                    <a href={it.url} target="_blank" rel="noopener">
+                      去看看 ↗
+                    </a>
+                  )}
+                  {it.detailUrl && (
+                    <a class="detail-link" href={it.detailUrl}>
+                      {it.detailLabel ?? '看介绍'} →
+                    </a>
+                  )}
+                </span>
               </div>
             </article>
           ))
