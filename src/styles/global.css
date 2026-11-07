@@ -1201,3 +1201,333 @@ footer .data-date {
     min-height: auto;
   }
 }
+
+/* ============================================================
+   2.0 改版新增：Hero 两栏 + CTA、虚拟形象、知识库区块、留资弹层
+   ============================================================ */
+
+/* ---------- Hero 两栏布局 ---------- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* ---------- Hero CTA 按钮组 ---------- */
+.hero-cta {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 10px 24px -14px rgba(200, 85, 61, 0.6);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -16px rgba(200, 85, 61, 0.7);
+  opacity: 1;
+}
+/* 按钮呼吸微动效：吸引首屏注意 */
+@keyframes cta-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.btn-primary {
+  animation: cta-breathe 2.6s ease-in-out infinite;
+}
+.btn-primary:hover {
+  animation: none;
+}
+
+/* ---------- 虚拟形象占位 ---------- */
+.hero-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.avatar-ring {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-soft), #fffdf9);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.avatar-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.avatar-placeholder {
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.avatar-caption {
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* ---------- 免费学 AI · 知识库区块 ---------- */
+.learning-map {
+  background: linear-gradient(180deg, var(--surface), #fbf7f1);
+}
+.learning-map-card {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  gap: 36px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 36px 40px;
+  box-shadow: var(--shadow);
+}
+.learning-map-lead {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.learning-map-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.learning-map-points li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.learning-map-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+.learning-map-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.learning-map-hint {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- 留资弹层 ---------- */
+.lead-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lead-modal[hidden] {
+  display: none;
+}
+.lead-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 27, 25, 0.5);
+  backdrop-filter: blur(4px);
+  animation: lead-fade 0.25s ease;
+}
+.lead-modal-panel {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 40px 36px 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lift);
+  animation: lead-pop 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lead-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+}
+.lead-modal-close:hover {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.lead-modal-panel h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.lead-modal-sub {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+.lead-field {
+  display: block;
+  margin-bottom: 12px;
+}
+.lead-label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.lead-field input {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 15px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.lead-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.lead-error {
+  font-size: 13px;
+  color: #c0392b;
+  margin: -4px 0 10px;
+}
+.lead-submit {
+  width: 100%;
+  justify-content: center;
+  font-size: 15px;
+  padding: 13px 26px;
+}
+.lead-note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.lead-form-hidden {
+  display: none;
+}
+.lead-success {
+  text-align: center;
+  padding: 10px 0;
+}
+.lead-success-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.lead-success h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.lead-success p {
+  font-size: 14px;
+  color: var(--muted);
+}
+.lead-success a {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+
+@keyframes lead-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lead-pop {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- 移动端适配 ---------- */
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero-avatar {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  .avatar-ring {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+  }
+  .avatar-caption {
+    text-align: left;
+  }
+  .learning-map-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 24px;
+  }
+  .learning-map-action {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-cta .btn {
+    text-align: center;
+  }
+  .lead-modal-panel {
+    padding: 32px 22px 24px;
+  }
+}

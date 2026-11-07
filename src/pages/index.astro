@@ -35,19 +35,37 @@ const methodCases = METHOD_CASES.map((c) => {
 >
   <!-- ① 开篇：身份 + 数字 + 一条主线 -->
   <section class="hero" id="top">
-    <div class="wrap">
-      <div class="kicker">个人主页 · 实践现场</div>
-      <h1 class="display">10 年运营人，<br />正在用 AI 把经验<br />重新做一遍。</h1>
-      <p class="lede">
-        前半场做平台增长（美团 · 滴滴），后半场管内容生态治理。现在把沉淀十年的隐性经验交给 AI
-        重新做一遍——做成了什么，下面用数据说话。
-      </p>
-      <div class="identities">
-        <div class="chip"><b>运营人</b> · 10 年操盘</div>
-        <div class="chip"><b>AI 探索者</b> · 近 2 年实践</div>
-        <div class="chip"><b>读书人</b> · 读得杂，不装专业</div>
+    <div class="wrap hero-grid">
+      <div class="hero-main">
+        <div class="kicker">个人主页 · 实践现场</div>
+        <h1 class="display">10 年运营人，<br />正在用 AI 把经验<br />重新做一遍。</h1>
+        <p class="lede">
+          前半场做平台增长（美团 · 滴滴），后半场管内容生态治理。现在把沉淀十年的隐性经验交给 AI
+          重新做一遍——做成了什么，下面用数据说话。
+        </p>
+        <div class="identities">
+          <div class="chip"><b>运营人</b> · 10 年操盘</div>
+          <div class="chip"><b>AI 探索者</b> · 近 2 年实践</div>
+          <div class="chip"><b>读书人</b> · 读得杂，不装专业</div>
+        </div>
+
+        <div class="hero-cta">
+          <button class="btn btn-primary" type="button" data-open-lead>
+            免费领 AI 学习地图
+          </button>
+          <a class="btn ghost" href="#contact">找我合作 / 交流</a>
+        </div>
       </div>
 
+      <aside class="hero-avatar" aria-hidden="true">
+        <div class="avatar-ring">
+          <img src="/avatar.png" alt="Bonnie 的虚拟形象：黑短发圆框眼镜的漫画插画头像" loading="lazy" />
+        </div>
+        <div class="avatar-caption">黑短发 · 圆框眼镜<br />Bonnie 的线上分身</div>
+      </aside>
+    </div>
+
+    <div class="wrap">
       <div class="stats" aria-label="关键数据">
         <div class="stat">
           <div class="num display">10<span class="unit">年</span></div>
@@ -104,6 +122,37 @@ const methodCases = METHOD_CASES.map((c) => {
         </div>
         )
       }
+    </div>
+  </section>
+
+  <!-- ①·⑤ 免费学 AI：知识库留资主钩子 -->
+  <section id="learning-map" class="learning-map">
+    <div class="wrap">
+      <p class="sec-lede display">— 免费的，别客气。</p>
+      <div class="sec-head">
+        <h2 class="display">免费学 AI · 学习知识地图</h2>
+        <div class="note">持续更新 · 边学边补充</div>
+      </div>
+
+      <div class="learning-map-card reveal">
+        <div class="learning-map-body">
+          <p class="learning-map-lead">
+            我把这两年「系统化学 AI」的路线整理成一张知识地图——从会用工具，到看懂原理，再到自己动手做。
+            持续更新，免费开放。
+          </p>
+          <ul class="learning-map-points">
+            <li>路线分明：从「用 AI」到「懂 AI」到「做 AI」，一步步来</li>
+            <li>边学边补：我学到哪，地图就更新到哪</li>
+            <li>不藏私：工具、思路、踩过的坑都写进去</li>
+          </ul>
+        </div>
+        <div class="learning-map-action">
+          <button class="btn btn-primary" type="button" data-open-lead>
+            免费领 AI 学习地图
+          </button>
+          <span class="learning-map-hint">留下邮箱，我把地图链接发给你</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -383,6 +432,30 @@ const methodCases = METHOD_CASES.map((c) => {
       </div>
     </div>
   </section>
+
+  <!-- 留资弹层：留邮箱 → 解锁知识库链接 -->
+  <div class="lead-modal" id="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lead-modal-title" hidden>
+    <div class="lead-modal-backdrop" data-close-lead></div>
+    <div class="lead-modal-panel">
+      <button class="lead-modal-close" type="button" data-close-lead aria-label="关闭">×</button>
+      <h3 class="display" id="lead-modal-title">免费领 AI 学习地图</h3>
+      <p class="lead-modal-sub">留下邮箱，我把「持续更新」的知识地图链接发给你。你的邮箱只用于这次发送，不打扰。</p>
+      <form class="lead-form" id="lead-form">
+        <label class="lead-field">
+          <span class="lead-label">邮箱</span>
+          <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+        </label>
+        <div class="lead-error" id="lead-error" hidden>邮箱格式不太对，检查一下？</div>
+        <button class="btn btn-primary lead-submit" type="submit">领取地图 →</button>
+        <p class="lead-note">提交即代表你愿意收到这份知识地图链接（不群发、不卖邮箱）。</p>
+      </form>
+      <div class="lead-success" id="lead-success" hidden>
+        <div class="lead-success-mark">✓</div>
+        <h4 class="display">已为你打开知识地图</h4>
+        <p>如果没自动跳转，<a href="https://docs.qq.com/doc/DUW5takxnUWFUUE5L" target="_blank" rel="noopener">点这里直接打开 ↗</a></p>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
 
 <script>
@@ -396,5 +469,58 @@ const methodCases = METHOD_CASES.map((c) => {
       btn.setAttribute('aria-expanded', String(!expanded));
       btn.textContent = expanded ? '展开全文 ▾' : '收起 ▴';
     });
+  });
+
+  // ---- 留资弹层 ----
+  const MAP_URL = 'https://docs.qq.com/doc/DUW5takxnUWFUUE5L';
+  const modal = document.getElementById('lead-modal') as HTMLElement | null;
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  const errorEl = document.getElementById('lead-error') as HTMLElement | null;
+  const successEl = document.getElementById('lead-success') as HTMLElement | null;
+
+  const openLead = () => {
+    if (!modal) return;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    form?.classList.remove('lead-form-hidden');
+    if (successEl) successEl.hidden = true;
+    const input = form?.querySelector('input') as HTMLInputElement | null;
+    setTimeout(() => input?.focus(), 50);
+  };
+  const closeLead = () => {
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll('[data-open-lead]').forEach((el) => el.addEventListener('click', openLead));
+  document.querySelectorAll('[data-close-lead]').forEach((el) => el.addEventListener('click', closeLead));
+  modal?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).hasAttribute('data-close-lead')) closeLead();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeLead();
+  });
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = form.querySelector('input') as HTMLInputElement;
+    const email = input.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!valid) {
+      if (errorEl) errorEl.hidden = false;
+      input.focus();
+      return;
+    }
+    if (errorEl) errorEl.hidden = true;
+
+    // 本地实现：邮箱暂不落库（云服务未开通），此处预留上报接口位。
+    // 后续接入云数据库 / 表单服务时，只需在这一行后追加持久化调用。
+    console.info('[lead] 邮箱已提交（本地模式，未持久化）:', email);
+
+    // 解锁：跳到知识库
+    form.classList.add('lead-form-hidden');
+    if (successEl) successEl.hidden = false;
+    window.open(MAP_URL, '_blank', 'noopener');
   });
 </script>

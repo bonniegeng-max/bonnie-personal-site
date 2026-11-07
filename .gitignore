@@ -18,3 +18,6 @@ npm-debug.log*
 # editor
 .vscode/
 .idea/
+
+# 虚拟形象过程稿（只提交正式头像 avatar.png）
+public/avatar-variants/
