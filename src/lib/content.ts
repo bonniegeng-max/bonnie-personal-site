@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-11-08',
+    tag: '公众号 · 书评',
+    title: '每个人的理性加起来，居然是个烂局（和AI读博弈论·一）',
+    desc: '在书店站着读完小半本博弈论，发现我对理性的理解从头就是错的。直觉说沉默更优，理性推出坦白，每个人的最优加起来，是个对谁都更差的烂局。顺便聊聊，为什么没人做错的方案评审，就是过不去。',
+    url: 'https://mp.weixin.qq.com/s/ZYGiIwjEewqff4F0Ydy1bw',
+  },
+  {
     date: '2026-10-31',
     tag: '公众号 · 书评',
     title: '读完这本书，我终于知道自己为什么迷茫',
