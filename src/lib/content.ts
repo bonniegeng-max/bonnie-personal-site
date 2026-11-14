@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-11-14',
+    tag: '公众号 · AI 实操',
+    title: '马斯克 600 亿买下 Cursor，这周 OpenAI 真的断供了',
+    desc: '600 亿买下 Cursor 三个月后，OpenAI 这周真的断供了。这件事背后，是 AI 行业第一次把「上游」和「下游」的矛盾摆上台面。想入这行的人，最该看懂的其实是这个。',
+    url: 'https://mp.weixin.qq.com/s/iebPdixapDsy4namMQMxRQ',
+  },
+  {
     date: '2026-11-08',
     tag: '公众号 · 书评',
     title: '每个人的理性加起来，居然是个烂局（和AI读博弈论·一）',
