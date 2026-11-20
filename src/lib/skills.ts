@@ -56,6 +56,9 @@ const CURATED: Record<
     displayName: '微信读书苏格拉底伴读 · weread-socrates',
     description:
       '解决「读完就忘、划了一堆线却没读进去」的问题：对接微信读书的 AI 伴读教练——全书结构思维导图（非虚构拆框架 / 虚构理人物关系）、万人热门划线对照，再用苏格拉底式 5 轮追问把一本书读透，笔记一键导出。',
+    // 2026-11-02 巡检发现从 ClawHub 下架（API 404，非改名），GitHub 仓还在：
+    // install 写空字符串 → 卡片不显示安装命令（同 token-optimizer 先例）。
+    install: '',
   },
   'museum-explorer': {
     displayName: '看展助手 · museum-explorer',
@@ -163,13 +166,25 @@ const CURATED: Record<
     displayName: '科普快剪 · kepu-quickcut',
     description:
       '解决「知识点讲得清却变不成视频」的问题：知识点 → 叙事模板 → 1080×1920 竖版科普短视频 MP4，确定性渲染，字幕位置永不错。',
-    install: '',
+    // 2026-11-09 巡检发现已上 ClawHub（10-26 时还是 404），移除 install: '' 恢复推导的有效安装命令。
   },
   'focuscat-expo': {
     displayName: 'FocusCat 专注力训练 · focuscat-expo',
     description:
       '解决「想练专注力却没有顺手的工具」的问题：Expo / React Native 开源的专注力训练 App 骨架，开箱即改、可自行部署。',
     install: '',
+  },
+  // 以下 2 个为 2026-11-16 巡检发现未登记，11-21 补登（econ-lens 11-08 双平台新发；
+  // book-traces 为 ClawHub-only，GitHub 仓库目前为空仓不展示，卡片走 CLAWHUB_SLUGS 路径）。
+  'econ-lens': {
+    displayName: '曼昆透镜 · econ-lens',
+    description:
+      '解决「工作决策、商业现象缺一个经济学分析框架」的问题：曼昆透镜——用经济学概念诊断裸辞、转岗、投入取舍等真实决策与现象，输出一句话定义 + 曼昆视角 + 真实案例 + 常见误用的透镜卡片；陪读《经济学原理》还能沉淀概念卡，让概念库生长。',
+  },
+  'book-traces': {
+    displayName: '书过留痕 · book-traces',
+    description:
+      '解决「读过就散、笔记没处落」的问题：读书全流程编排——通过对话挖掘并映射阅读素材，梳理书籍脉络，把一本书沉淀成内容、方法与工具三层成果。',
   },
 };
 
@@ -194,7 +209,9 @@ const CLAWHUB: Record<string, { displayName: string; description: string; caseUr
 // 2026-09-12 与 dashboard 核对 18 个；2026-09-13 新增 xiaohongshu-prohibited-words（第 19 个）；
 // 2026-09-21 新增 future-journal（第 20 个）；
 // 2026-09-28 巡检翻全量列表核对后新增 concept-radar、xiaohongshu-preflight-check（第 22 个）；
-// 2026-10-26 巡检新增 style-card（第 23 个，10-24 发布，owner 已核实）。
+// 2026-10-26 巡检新增 style-card（第 23 个，10-24 发布，owner 已核实）；
+// 2026-11-16 巡检新增 econ-lens、kepu-quickcut、book-traces（第 24~26 个，
+// econ-lens 11-08 发布；kepu-quickcut 10-24 后补上 ClawHub；book-traces 11-01 发布，ClawHub-only）。
 const CLAWHUB_SLUGS: string[] = [
   'beauty-offer-auditor',
   'poetry-resonance',
@@ -219,10 +236,15 @@ const CLAWHUB_SLUGS: string[] = [
   'concept-radar',
   'xiaohongshu-preflight-check',
   'style-card',
+  'econ-lens',
+  'kepu-quickcut',
+  'book-traces',
 ];
 
 // GitHub 仓库名与 ClawHub slug 不一致时的映射（例：仓库叫 concept-radar-skill，
 // ClawHub 上的 slug 是 concept-radar）。下载量匹配、install 命令、去重都按此对齐。
+// 注意：concept-radar-skill 仓已于 2026-11-21 起被排除（isExcludedRepo，新同名仓 concept-radar
+// 取代），此映射暂保留——若日后恢复旧仓可继续生效，当前无实际调用方。
 const REPO_TO_CLAWHUB_SLUG: Record<string, string> = {
   'concept-radar-skill': 'concept-radar',
 };
@@ -293,12 +315,15 @@ export const LINES: SkillLine[] = [
 // 非 skill / 非作品的仓库：站点自身源码、profile 仓库、GitHub Pages 仓库，
 // 以及暂不展示的仓库（price-gap-map，描述补齐后再上）。
 // token-optimizer 已于 2026-10-12 解除隐藏（GitHub-only 展示，见 CURATED 注释）。
+// concept-radar-skill：11-17 新开 concept-radar 仓（与 ClawHub slug 同名，即 skill 源码仓），
+// 两个仓归一化后同 key 会产生重复卡片 → 排除旧仓，2026-11-21 巡检修复。
 function isExcludedRepo(name: string, username: string): boolean {
   return (
     name === username ||
     name === 'bonnie-personal-site' ||
     name.endsWith('.github.io') ||
-    name === 'price-gap-map'
+    name === 'price-gap-map' ||
+    name === 'concept-radar-skill'
   );
 }
 
