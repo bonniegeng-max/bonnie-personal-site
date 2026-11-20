@@ -12,6 +12,13 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    date: '2026-11-21',
+    tag: '公众号 · AI 实操',
+    title: 'AI 到底靠谁的钱活着',
+    desc: '免费的 AI，最后谁在买单？翻完几家公司的账，我发现最烧钱的生意，反而都在抢着让你免费用。钱从哪来，决定了它的答案最后替你着想，还是替金主着想。',
+    url: 'https://mp.weixin.qq.com/s/4QRdnaE7d73lq5SEkxNhIg',
+  },
+  {
     date: '2026-11-14',
     tag: '公众号 · AI 实操',
     title: '马斯克 600 亿买下 Cursor，这周 OpenAI 真的断供了',
