@@ -136,12 +136,20 @@ export interface LearningItem {
   what: string; // 在做什么
   why: string; // 为什么做 / 想解决什么
   status: string; // 进度或当前状态
+  url?: string; // 可选：跳转入口（如实操案例文档）
 }
 
 // 2026-10-21：RAG 备考项目已完结毕业（原两张卡：项目卡 + 三阶段进度卡），
-// 完结的东西不该占「正在做」——空着不渲染（首页 LEARNING.length === 0 时整块收起），
-// 等下一个真在学的项目填回来。原文案见 git 历史 3879428。
-export const LEARNING: LearningItem[] = [];
+// 完结的东西不该占「正在做」——空着不渲染（首页 LEARNING.length === 0 时整块收起）。
+// 2026-11-23：把正在学的《人人都能AI编程》+ 健康手帐实操填回来。
+export const LEARNING: LearningItem[] = [
+  {
+    what: '健康手帐 · 用 AI 把一个 H5 从零做到能发布',
+    why: '《人人都能AI编程》课程跟练：从 MVP 网页一路做到图片录入、运动计划、自动测试，每个功能都亲手验收',
+    status: '正在跟第 10 讲（自动测试）· v0.9 上线',
+    url: 'https://docs.qq.com/aio/DUUZpQkdYUmhzVE9x',
+  },
+];
 
 // 「在这里找到我」渠道矩阵：每卡一句"这里发什么"
 export interface Channel {

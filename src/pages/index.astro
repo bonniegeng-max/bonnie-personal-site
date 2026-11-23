@@ -113,7 +113,9 @@ const methodCases = METHOD_CASES.map((c) => {
           <div class="learning-grid">
             {LEARNING.map((l) => (
               <div class="learning-item reveal">
-                <div class="learning-what">{l.what}</div>
+                <div class="learning-what">
+                  {l.url ? <a href={l.url} target="_blank" rel="noopener">{l.what} ↗</a> : l.what}
+                </div>
                 <p>{l.why}</p>
                 <span class="learning-status">{l.status}</span>
               </div>

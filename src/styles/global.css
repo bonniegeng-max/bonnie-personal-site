@@ -808,6 +808,13 @@ section {
   font-size: 15px;
   font-weight: 600;
 }
+.learning-what a {
+  color: inherit;
+  text-decoration: none;
+}
+.learning-what a:hover {
+  color: var(--accent);
+}
 .learning-item p {
   font-size: 13.5px;
   color: var(--muted);
