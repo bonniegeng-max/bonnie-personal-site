@@ -280,6 +280,14 @@ export interface Credential {
 // 按取得时间倒序：2026-05 → 2025-11 → 2025-04 → 2025-01 → 2024-05 → 2023-08
 export const CREDENTIALS: Credential[] = [
   {
+    name: '大模型应用开发工程师（高级）',
+    issuer: '工业和信息化部人才交流中心 · IITC',
+    date: '2026-11',
+    img: '/certs/llm-app-engineer-advanced.png',
+    story: '5 月刚拿中级，11 月又补了张高级。中间夹着一个 RAG 项目：文档全都找回来了，答案却排不到第一；把排序调对那一刻，才分清「找到」和「答对」是两件事。证暂时没派上用场，过程算数。',
+    takeaway: '证书是快照，卡住的那一步才是真长本事的地方。',
+  },
+  {
     name: '大模型应用开发工程师（中级）',
     issuer: '工业和信息化部人才交流中心 · IITC',
     date: '2026-05',
